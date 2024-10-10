@@ -3,9 +3,11 @@
 
 ## API Reference
 
-# Card Activation API
+#card
 
-## POST /ApplyCardss
+# ApplyCard
+
+## POST /ApplyCard
 
 ### Summary
 Apply for a card using the specified program ID.
