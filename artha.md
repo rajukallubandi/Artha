@@ -6,7 +6,7 @@
     - [Connection Method](#Connection-Method)
     - [API Specification](#API-Specification)
     - [SHA256WithRSA Signature](#SHA256WithRSA-Signature)    
-- [card](#card)
+- [Cards](#Cards)
   - [ApplyCard](#ApplyCard)
   - [Binding](#Binding)
   - [CardTopUp](#CardTopUp)
@@ -21,7 +21,7 @@
   - [Countries](#Countries)
   - [Towns](#Towns)
 - [Merchant Information](#Merchant-Information)
-  - [Merchant](#Merchant)
+  - [Programdetails](#Programdetails)
 
 
 # Introduction
@@ -114,6 +114,7 @@ and the merchant must exchange public keys, which will be used for validating re
 
 * Insert the base64-encoded signature value into the `signature` field in the request header.
 
+# Cards
 
 ## ApplyCard
 
@@ -558,8 +559,6 @@ Card Balance
 
 Countries
 
-**Request**
-
 **Headers**
 
 - **Content-Type:** application/json
@@ -585,8 +584,6 @@ Countries
 
 Towns
 
-**Request**
-
 **Headers**
 
 - **Content-Type:** application/json
@@ -604,15 +601,11 @@ Towns
 
 # Merchant Information
 
-**Merchant**
-
 **Get /Merchant**
 
 **Summary**
 
 Merchant
-
-**Request**
 
 **Headers**
 
@@ -676,3 +669,73 @@ Merchant
 }
  }
  ```
+ 
+ # Programdetails
+
+**Get/programdetails**
+
+**Summary**
+
+Programdetails
+
+**Request**
+
+**Headers**
+
+- **Content-Type:** application/json
+
+**RequestBody**
+
+```json
+{    
+  "programid": "2qw234e"
+}
+```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| programid    | string   |**Required.**	Must be between 1 and 36 bytes in UTF-8 encoding|
+
+**Response**
+```JSON
+{
+  "programId": "550e8400-e29b-41d4-a716-446655440000",
+  "bin": 123456,
+  "name": "Premium Card",
+  "currency": "USD",
+  "type": "Debit",
+  "consumptionMethod": "Online",
+  "isoCountryName": "United States",
+  "cardFee": 15.99,
+  "cardOpeningFee": 5.00,
+  "firstRechargeAmount": 50.00,
+  "cancellationFeeMin": 5.00,
+  "cancellationFeeMax": 25.00,
+  "freightFee": 2.50,
+  "rechargeFeeMin": 1.00,
+  "rechargeFeeMax": 10.00,
+  "transactionFee": 0.50,
+  "atmWithdrawalFee": 2.00,
+  "maintenanceFee": 1.50,
+  "atmBalanceInquiryFee": 0.50,
+  "monthlyRechargeLimit": 1000.00,
+  "dailyRechargeLimit": 300.00,
+  "singleRechargeLimit": 200.00,
+  "perPaymentLimit": 150.00,
+  "atmDailyWithdrawalLimit": 500.00,
+  "spendingLimit": 1000.00,
+  "reviewTime": "2024-10-10T12:00:00Z",
+  "cardState": "Active",
+  "note": "First card issuance",
+  "remarks": "For premium users only",
+  "isKycRequired": "Yes",
+  "supportedOperationTypes": "Purchase, Transfer",
+  "cardImage": "https://example.com/images/card.png",
+  "supportedPlatforms": "iOS, Android, Web",
+  "TopUpTokens":
+  {
+  "token": "abcdef1234567890",
+  "network": "Visa",
+  "address": "123 Main St, Anytown, USA"
+  }
+}
+```
