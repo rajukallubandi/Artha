@@ -5,23 +5,23 @@
     - [API Base URL](#API-Base-URL)
     - [Connection Method](#Connection-Method)
     - [API Specification](#API-Specification)
-    - [SHA256WithRSA Signature](#SHA256WithRSA-Signature)   
+    - [SHA256WithRSA Signature](#SHA256WithRSA-Signature) 
+- [API Reference](#API Reference)	
     - [Merchant Information](#Merchant-Information)
     - [Programdetails](#Programdetails)	
-- [Cards](#Cards)
-  - [ApplyCard](#ApplyCard)
-  - [Binding](#Binding)
-  - [CardTopUp](#CardTopUp)
-  - [CardFreeze](#CardFreeze)
-  - [CardUnFreeze](#CardUnFreeze)
-  - [CancelCard](#CancelCard)
-  - [EstimateCardTopUpFee](#EstimateCardTopUpFee)
-  - [CardDetails](#CardDetails)
-  - [PinDetails](#PinDetails)
-  - [CardBalance](#CardBalance)
-  - [CardUnFreeze](#CardUnFreeze)
-  - [Countries](#Countries)
-  - [Towns](#Towns)
+    - [ApplyCard](#ApplyCard)
+    - [Binding](#Binding)
+    - [CardTopUp](#CardTopUp)
+    - [CardFreeze](#CardFreeze)
+    - [CardUnFreeze](#CardUnFreeze)
+    - [CancelCard](#CancelCard)
+    - [EstimateCardTopUpFee](#EstimateCardTopUpFee)
+    - [CardDetails](#CardDetails)
+    - [PinDetails](#PinDetails)
+    - [CardBalance](#CardBalance)
+    - [CardUnFreeze](#CardUnFreeze)
+    - [Countries](#Countries)
+    - [Towns](#Towns)
   
 
 
@@ -114,6 +114,8 @@ and the merchant must exchange public keys, which will be used for validating re
 * Encode the resulting signature in base64 format.
 
 * Insert the base64-encoded signature value into the `signature` field in the request header.
+
+# API Reference
 
 # Merchant Information
 
@@ -261,8 +263,6 @@ Programdetails
   }
 }
 ```
-
-# Cards
 
 ## ApplyCard
 
