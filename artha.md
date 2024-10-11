@@ -25,7 +25,15 @@
     - [Countries](#Countries)
     - [Towns](#Towns)
 - [Callback notification](#Callback-notification)
-  
+        - [Set callback notification url](#Set-callback-notification-url)
+        - [Callback notification type](#Callback-notification-type)
+        - [Global Express Remittance Payment result callback notification](#Global-Express-Remittance-Payment-result-callback-notification)
+        - [Global Express Remittance Adjustment callback notification](#Global-Express-Remittance-Adjustment-callback-notification)
+        - [User KYC callback notification](#User-KYC-callback-notification)
+        - [Bank card callback notification of card recharge result](#Bank-card-callback-notification-of-card-recharge-result)
+        - [Bank card activation result callback notification](#Bank-card-activation-result-callback-notification)
+        - [Bank card freeze thaw processing status callback notification](#Bank-card-freeze-thaw-processing-status-callback-notification)
+        - [Bank card 3DS verification](#Bank-card-3DS-verification)
 
 
 # Introduction
@@ -122,11 +130,13 @@ and the merchant must exchange public keys, which will be used for validating re
 ## Callback Notification Callback Parameters and Template
 | Parameters | Type | Whether it is required | Meaning |
 |:-------------|:---------|:------------|:-----------|
-| data | Object | Y | response body |
-| requestId | String | Y | Request flow id. 20 random characters |
-| merchantId | String | Y | Merchant ID. PayouCard assigned to merchants |
-| signature | String | Y | signature |
-| notifyType | Integer | Y | notification type |
+| taskId | String | Y | response body |
+| Remarks | String | Y | Request flow id. 20 random characters |
+| Status	 | String | Y | Merchant ID. PayouCard assigned to merchants |
+| opt_code | String | Y | signature |
+| notifyType | String | Y | notification type |
+| amount	 | String | Y | notification type |
+| CreationTime	 | integer | Y | notification type |
 
 ## Callback Notification Response Parameters and Template
 | Parameters | Type | Whether it is required | Meaning |
@@ -872,3 +882,286 @@ Please set the callback notification address in the merchant basic information i
 | 6 | Bank card | Card freeze, thaw processing status callback notification |
 | 7 | Bank card | 3DS verification |
 
+### Global Express Remittance Payment result callback notification
+This notification notifyType = 1
+
+**Callback parameters:**
+
+| Parameter | Type | Must be transmitted | Meaning |
+|:------|:------|:------|:------|
+| orderNo | Long | Y | PayoCard order number |
+| status | String | Y | Order status. B3: Successful payment; B4: Failed payment; B6: Refund; |
+| paymentCurrency | String | Y | Payment currency |
+| paymentAmount | BigDecimal | Y | Payment amount |
+| paymentFee | BigDecimal | Y | Payment fee |
+| receivedAccountNum | String | Y | Receiving account number |
+| receivedAccountName | String | Y | Receiving account name |
+| receivedCurrency | String | Y | Receiving currency |
+| receivedAmount | BigDecimal | N | Receiving amount. Return when status = B3, B4, B6 |
+| resultMsg | String | N | message |
+
+**Callback example:**
+
+```JSON
+{
+    "data":{
+        "orderNo": 12343434232324,
+        "status": "B3",
+        "paymentCurrency": "EUR",
+        "paymentAmount": 10,
+        "payAccountNum": "1234",
+        "paymentFee": 1.5,
+        "receivedAccountNum": "es324353535",
+        "receivedAccountName": "tom z",
+        "receivedCurrency": "SGD",
+        "receivedAmount": 30.5,
+        "resultMsg": "success"
+    },
+    "requestId": "PYC20240325164529237",
+    "merchantId": "88888888",
+    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
+    "notifyType": 1
+}
+```
+
+**Response parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be initiated repeatedly |
+| message | String | N | Information |
+
+**Response example:**
+
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
+### Global Express Remittance Adjustment callback notification
+
+This notification notifyType = 2
+
+**Callback parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| orderNo | Long | Y | PayouCard order number |
+| status | String | Y | Order status. B11: Transfer order_pending submission; B13: Transfer order_approved; B15: Transfer order_rejected |
+| transferOrderInfo | List | N | Transfer order information. See dictionary_biz.pdf (2.2. Transfer order info type) |
+| transferOrderFile | List | N | Transfer order file. See dictionary_biz.pdf (2.3. Transfer order file type) |
+| transferOrderDesc | String | N | Transfer order information |
+
+**Callback example:**
+
+```json
+{
+  "data":
+  {
+    "orderNo": 12343434232324,
+    "status": "B11",
+    "transferOrderInfo":
+    [
+      "1",
+      "3",
+      "5"
+    ],
+    "transferOrderFile":
+    [
+      "21",
+      "23",
+      "24"
+    ],
+    "transferOrderDesc": ""
+  },
+  "requestId": "PYC20240325164529237",
+  "merchantId": "88888888",
+  "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
+  "notifyType": 2
+}
+```
+**Response parameters:**
+
+| Parameter | Type | Required | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be repeated |
+| message | String | N | information |
+
+**Response example:**
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
+### User KYC callback notification
+This notification notifyType = 3
+
+**Callback parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| uniqueId | String | Y | Unique ID of partner user |
+| cardTypeId | Integer | Y | Card type |
+| status | Integer | Y | Status |
+| statusDesc | String | Y | Status description |
+
+**Callback example:**
+```json
+{
+    "data":{
+        "uniqueId": "T6789O067890",
+        "cardTypeId": 1,
+        "status": 1,
+        "statusDesc":"success"
+    },
+    "requestId": "PYC20240325164529237",
+    "merchantId": "88888888",
+    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
+    "notifyType": 3
+}
+```
+
+**Response parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be initiated repeatedly |
+| message | String | N | Information |
+
+**Response example:**
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
+### Bank card activation result callback notification
+This notification notifyType = 5
+
+**Callback parameters:**
+
+| Parameter | Type | Is it required | Meaning |
+|:------|:------|:------|:------|
+| cardNo | String | Y | Card number |
+| status | Integer | Y | Status. 5: Activation successful; 12: Activation review failed |
+| msg | String | N | Error message |
+
+**Callback example:**
+```JSON
+{
+    "data":{
+        "cardNo": "12456782323",
+        "status": 5,
+        "msg": null
+    },
+    "requestId": "PYC20240325164529237",
+    "merchantId": "88888888",
+    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
+    "notifyType": 5
+}
+```
+
+**Response parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be initiated repeatedly |
+| message | String | N | information |
+
+**Response example:**
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
+### Bank card freeze thaw processing status callback notification
+This notification notifyType = 6
+
+**Callback parameters:**
+
+| Parameter | Type | Is it required | Meaning |
+|:------|:------|:-----|:------|
+| uniqueId | String | Y | Unique ID of the partner user |
+| cardNo | String | Y | Card number |
+| status | Integer | Y | Status. 1: Success; 2: Failure |
+| requestType | Integer | Y | Type. 1: Freeze; 2: Unfreeze |
+
+**Callback example:**
+
+```json
+{
+    "data":{
+        "uniqueId": 502323,
+        "cardNo": "12456782323",
+        "status": 1,
+        "requestType": 1
+    },
+    "requestId": "PYC20240325164529237",
+    "merchantId": "88888888",
+    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
+    "notifyType": 5
+}
+```
+
+**Response parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be repeated |
+| message | String | N | information |
+
+**Response example:**
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
+### Bank card 3DS verification
+This notification notifyType = 7
+
+**Callback parameters:**
+
+| Parameter | Type | Must be passed | Meaning |
+|:------|:------|:------|:------|
+| cardNo | String | Y | Card number |
+| otp | String | Y | Verification code |
+| merchantName | String | Y | Merchant name |
+| transactionAmount | String | Y | Transaction amount |
+| transactionCurrency | String | Y | Transaction currency |
+
+**Callback example:**
+
+```json
+{
+    "data":{
+        "cardNo": "4611990424818446",
+        "otp": "890789",
+        "merchantName": "test",
+        "transactionAmount": "100",
+        "transactionCurrency": "EUR"
+    },
+    "requestId": "PYC20240325164529237",
+    "merchantId": "88888888",
+    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
+    "notifyType": 5
+}
+```
+
+**Response parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be initiated repeatedly |
+| message | String | N | Information |
+
+**Response example:**
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
