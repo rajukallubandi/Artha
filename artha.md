@@ -6,6 +6,8 @@
     - [Connection Method](#Connection-Method)
     - [API Specification](#API-Specification)
     - [SHA256WithRSA Signature](#SHA256WithRSA-Signature) 
+	- [Callback Notification Callback Parameters and Template](#Callback-Notification-Callback-Parameters-and-Template)
+    - [Callback Notification Response Parameters and Template](#Callback-Notification-Response-Parameters-and-Template)
 - [API Reference](#API-Reference)	
     - [Merchant Information](#Merchant-Information)
     - [Programdetails](#Programdetails)	
@@ -22,6 +24,7 @@
     - [CardUnFreeze](#CardUnFreeze)
     - [Countries](#Countries)
     - [Towns](#Towns)
+- [Callback notification](#Callback-notification)
   
 
 
@@ -114,6 +117,28 @@ and the merchant must exchange public keys, which will be used for validating re
 * Encode the resulting signature in base64 format.
 
 * Insert the base64-encoded signature value into the `signature` field in the request header.
+
+
+## Callback Notification Callback Parameters and Template
+| Parameters | Type | Whether it is required | Meaning |
+|:-------------|:---------|:------------|:-----------|
+| data | Object | Y | response body |
+| requestId | String | Y | Request flow id. 20 random characters |
+| merchantId | String | Y | Merchant ID. PayouCard assigned to merchants |
+| signature | String | Y | signature |
+| notifyType | Integer | Y | notification type |
+
+## Callback Notification Response Parameters and Template
+| Parameters | Type | Whether it is required | Meaning |
+|:------------|:--------|:------------|:-----------|
+| code | Integer | Y | response code |
+| message | String | Y | message |
+```json
+{
+    "code": 0,
+    "message": ""
+}
+```
 
 # API Reference
 
@@ -829,5 +854,21 @@ Towns
    "countryOrRegion":"Y"
  }
  ```
+## Callback notification
+### Set callback notification url
+This interface is used to set callback notification URL.
 
+Please set the callback notification address in the merchant basic information in the merchant backend system. All callback notifications share this URL, and use notifyType to distinguish different notification contents
+
+### Callback notification type
+
+| notifyType | business | meaning |
+|:------------|:------|:------|
+| 1 | Global Express | Payment success, payment failure, refund notification |
+| 2 | Global Express | Order adjustment notification |
+| 3 | Bank card | Callback notification after user registration review is completed |
+| 4 | Bank card | Card recharge result callback notification |
+| 5 | Bank card | Card activation result callback notification |
+| 6 | Bank card | Card freeze, thaw processing status callback notification |
+| 7 | Bank card | 3DS verification |
 
