@@ -25,8 +25,15 @@
     - [Countries](#Countries)
     - [Towns](#Towns)
 - [Callback notification](#Callback-notification)
-       - [Set callback notification url] (#Set-callback-notification-url)
-       - [Callback notification type] (#Callback-notification-type)
+       - [Set callback notification url](#Set-callback-notification-url)
+       - [Callback notification type](#Callback-notification-type)
+	   - [Global Express Remittance Payment result callback notification](#Global-Express-Remittance-Payment-result-callback-notification)
+	   - [Global Express Remittance Adjustment callback notification](#Global-Express-Remittance-Adjustment-callback-notification)
+	   - [User KYC callback notification](#User-KYC-callback-notification)
+	   - [Bank card callback notification of card recharge result](#Bank-card-callback-notification-of-card-recharge-result)
+	   - [Bank card activation result callback notification](#Bank-card-activation-result-callback-notification)
+       - [Bank card freeze thaw processing status callback notification](#Bank-card-freeze-thaw-processing-status-callback-notification)
+	   - [Bank card 3DS verification](#Bank-card-3DS-verification)
 
 
 # Introduction
@@ -857,13 +864,13 @@ Towns
    "countryOrRegion":"Y"
  }
  ```
-## Callback notification
-### Set callback notification url
+# Callback notification
+## Set callback notification url
 This interface is used to set callback notification URL.
 
 Please set the callback notification address in the merchant basic information in the merchant backend system. All callback notifications share this URL, and use notifyType to distinguish different notification contents
 
-### Callback notification type
+## Callback notification type
 
 | notifyType | business | meaning |
 |:------------|:------|:------|
@@ -875,7 +882,7 @@ Please set the callback notification address in the merchant basic information i
 | 6 | Bank card | Card freeze, thaw processing status callback notification |
 | 7 | Bank card | 3DS verification |
 
-### Global Express Remittance Payment result callback notification
+## Global Express Remittance Payment result callback notification
 This notification notifyType = 1
 
 **Callback parameters:**
@@ -932,7 +939,7 @@ This notification notifyType = 1
     "message": "success"
 }
 ```
-### Global Express Remittance Adjustment callback notification
+## Global Express Remittance Adjustment callback notification
 
 This notification notifyType = 2
 
@@ -988,7 +995,7 @@ This notification notifyType = 2
     "message": "success"
 }
 ```
-### User KYC callback notification
+## User KYC callback notification
 This notification notifyType = 3
 
 **Callback parameters:**
@@ -1030,7 +1037,7 @@ This notification notifyType = 3
     "message": "success"
 }
 ```
-### Bank card activation result callback notification
+## Bank card activation result callback notification
 This notification notifyType = 5
 
 **Callback parameters:**
@@ -1070,7 +1077,7 @@ This notification notifyType = 5
     "message": "success"
 }
 ```
-### Bank card freeze thaw processing status callback notification
+## Bank card freeze thaw processing status callback notification
 This notification notifyType = 6
 
 **Callback parameters:**
@@ -1113,7 +1120,7 @@ This notification notifyType = 6
     "message": "success"
 }
 ```
-### Bank card 3DS verification
+## Bank card 3DS verification
 This notification notifyType = 7
 
 **Callback parameters:**
