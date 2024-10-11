@@ -577,7 +577,7 @@ Card Unlock
 }
 ```
 
-** Response**
+## Response
 
 ```json
 {  
