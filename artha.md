@@ -575,9 +575,9 @@ Card Unlock
 {    
   "cardId": "2qw234e"
 }
-```
 
-## Response
+```
+**Response**
 
 ```json
 {  
