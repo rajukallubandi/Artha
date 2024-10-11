@@ -5,7 +5,9 @@
     - [API Base URL](#API-Base-URL)
     - [Connection Method](#Connection-Method)
     - [API Specification](#API-Specification)
-    - [SHA256WithRSA Signature](#SHA256WithRSA-Signature)    
+    - [SHA256WithRSA Signature](#SHA256WithRSA-Signature)   
+    - [Merchant Information](#Merchant-Information)
+    - [Programdetails](#Programdetails)	
 - [Cards](#Cards)
   - [ApplyCard](#ApplyCard)
   - [Binding](#Binding)
@@ -20,8 +22,7 @@
   - [CardUnFreeze](#CardUnFreeze)
   - [Countries](#Countries)
   - [Towns](#Towns)
-  - [Merchant Information](#Merchant-Information)
-  - [Programdetails](#Programdetails)
+  
 
 
 # Introduction
@@ -51,12 +52,12 @@ Recommended to using Test environment for debugging before proceed to the produc
 
 ## Merchant platform URL
 
-Test environment: https://tstapi.artha.work
+Test environment: https://tstapi.artha.work/api/v1
 
 
 ## API Base URL
 
-Test environment: https://tstapi.artha.work
+Test environment: https://tstapi.artha.work/api/v1
 
 
 **CustomerToken:** This token must be included in the request header when accessing the API, using the format **CustomerToken={CustomerToken}**.
@@ -114,13 +115,160 @@ and the merchant must exchange public keys, which will be used for validating re
 
 * Insert the base64-encoded signature value into the `signature` field in the request header.
 
+# Merchant Information
+
+**HTTP request**
+
+**Get /Merchant**
+
+**Summary**
+
+Merchant
+
+**Headers**
+
+- **Content-Type:** application/json
+
+**Response**
+
+```json
+{  
+ "name": "Jhon",
+ "email":"Jhon@gmail.com",
+  "mobile":"9398909890",
+  "Balance":
+  {
+  "currency":"USD",
+    "currencyCode":"USD",
+    "network":"TRC-20",
+    "amount":"100"
+  },
+  "Programs":
+  {
+  "programId": "550e8400-e29b-41d4-a716-446655440000",
+  "bin": 123456,
+  "name": "Premium Card",
+  "currency": "USD",
+  "type": "Debit",
+  "consumptionMethod": "Online",
+  "isoCountryName": "United States",
+  "cardFee": 15.99,
+  "cardOpeningFee": 5.00,
+  "firstRechargeAmount": 50.00,
+  "cancellationFeeMin": 5.00,
+  "cancellationFeeMax": 25.00,
+  "freightFee": 2.50,
+  "rechargeFeeMin": 1.00,
+  "rechargeFeeMax": 10.00,
+  "transactionFee": 0.50,
+  "atmWithdrawalFee": 2.00,
+  "maintenanceFee": 1.50,
+  "atmBalanceInquiryFee": 0.50,
+  "monthlyRechargeLimit": 1000.00,
+  "dailyRechargeLimit": 300.00,
+  "singleRechargeLimit": 200.00,
+  "perPaymentLimit": 150.00,
+  "atmDailyWithdrawalLimit": 500.00,
+  "spendingLimit": 1000.00,
+  "reviewTime": "2024-10-10T12:00:00Z",
+  "cardState": "Active",
+  "note": "First card issuance",
+  "remarks": "For premium users only",
+  "isKycRequired": "Yes",
+  "supportedOperationTypes": "Purchase, Transfer",
+  "cardImage": "https://example.com/images/card.png",
+  "supportedPlatforms": "iOS, Android, Web",
+  "TopUpTokens":
+  {
+  "token": "abcdef1234567890",
+  "network": "Visa",
+  "address": "123 Main St, Anytown, USA"
+  }
+}
+ }
+ ```
+ 
+ # Programdetails
+ 
+ **HTTP request**
+
+**Get /programdetails/{programid}**
+
+**Summary**
+
+Programdetails
+
+**Request**
+
+**Headers**
+
+- **Content-Type:** application/json
+
+
+
+| Parameter | Type    |Required or not | Description                       |
+| :-------- | :-------|:---------------| :-------------------------------- |
+| programid | string  |        Y        |Must be between 1 and 36 bytes in UTF-8 encoding|
+
+```json
+{    
+  "programid": "2qw234e"
+}
+```
+
+
+**Response**
+```JSON
+{
+  "programId": "550e8400-e29b-41d4-a716-446655440000",
+  "bin": 123456,
+  "name": "Premium Card",
+  "currency": "USD",
+  "type": "Debit",
+  "consumptionMethod": "Online",
+  "isoCountryName": "United States",
+  "cardFee": 15.99,
+  "cardOpeningFee": 5.00,
+  "firstRechargeAmount": 50.00,
+  "cancellationFeeMin": 5.00,
+  "cancellationFeeMax": 25.00,
+  "freightFee": 2.50,
+  "rechargeFeeMin": 1.00,
+  "rechargeFeeMax": 10.00,
+  "transactionFee": 0.50,
+  "atmWithdrawalFee": 2.00,
+  "maintenanceFee": 1.50,
+  "atmBalanceInquiryFee": 0.50,
+  "monthlyRechargeLimit": 1000.00,
+  "dailyRechargeLimit": 300.00,
+  "singleRechargeLimit": 200.00,
+  "perPaymentLimit": 150.00,
+  "atmDailyWithdrawalLimit": 500.00,
+  "spendingLimit": 1000.00,
+  "reviewTime": "2024-10-10T12:00:00Z",
+  "cardState": "Active",
+  "note": "First card issuance",
+  "remarks": "For premium users only",
+  "isKycRequired": "Yes",
+  "supportedOperationTypes": "Purchase, Transfer",
+  "cardImage": "https://example.com/images/card.png",
+  "supportedPlatforms": "iOS, Android, Web",
+  "TopUpTokens":
+  {
+  "token": "abcdef1234567890",
+  "network": "Visa",
+  "address": "123 Main St, Anytown, USA"
+  }
+}
+```
+
 # Cards
 
 ## ApplyCard
 
 **HTTP request**
 
-**POST/ApplyCard**
+**POST /ApplyCard**
 
 **Summary**
 
@@ -218,7 +366,9 @@ Apply for a card using the specified program ID.
 
 ## Binding
 
-**POST/Binding**
+**HTTP request**
+
+**POST /Binding**
 
 **Summary**
 
@@ -237,7 +387,7 @@ Binding KYC
 | taskId    | string   |  must be between 1 and 36 bytes in UTF-8 encoding |
 | cardNumber| string   |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
 |envelopeNo | string   |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
-| KYC       | object   |{}                                                                                           |
+| kyc       | object   |{}                                                                                           |
 
 
 | Parameter        | Type   |Required or not| Description                          |
@@ -274,7 +424,7 @@ Binding KYC
   "taskId": "string",
   "cardNumber": "string",
   "envelopeNo": "string",
-   "KYC":  {
+   "kyc":  {
     "firstname": "cameron",
     "lastname": "green",
     "gender": 1,
@@ -318,8 +468,9 @@ Binding KYC
 
 ```
 ## CardTopUp
+**HTTP request**
 
-**POST/CardTopUp**
+**POST /CardTopUp**
 
 **Summary**
 
@@ -333,6 +484,12 @@ Card Recharge
 
 **RequestBody**
 
+| Parameter | Type    |Required or not | Description                       |
+| :-------- | :-------|:-------------- | :-------------------------------- |
+| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+| amount    | string  |       Y         | Must be between 1 and 10 bytes in UTF-8 encoding|
+
+
 ```json
 {    
   "taskId": "2qw234e",
@@ -342,10 +499,6 @@ Card Recharge
 }
 
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.** Must be between 1 and 36 bytes in UTF-8 encoding|
-| amount    | string   |**Required.** Must be between 1 and 10 bytes in UTF-8 encoding|
 
 **Response**
 
@@ -360,7 +513,9 @@ Card Recharge
 
 ## CardFreeze
 
-**POST/CardFreeze**
+**HTTP request**
+
+**POST /CardFreeze**
 
 **Summary**
 
@@ -374,16 +529,16 @@ Card Lock
 
 **RequestBody**
 
+| Parameter | Type    |Required or not | Description                       |
+| :-------- | :-------|:-------------- | :-------------------------------- |
+| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+
 ```json
 {    
   "cardId": "2qw234e"
 }
 
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.** Must be between 1 and 36 bytes in UTF-8 encoding|
-
 **Response**
 
 ```json
@@ -396,7 +551,9 @@ Card Lock
 ```
 ## CardUnFreeze
 
-**POST/CardUnFreeze**
+**HTTP request**
+
+**POST /CardUnFreeze**
 
 **Summary**
 
@@ -410,16 +567,17 @@ Card Unlock
 
 **RequestBody**
 
+| Parameter | Type    |Required or not | Description                       |
+| :-------- | :-------|:-------------- | :-------------------------------- |
+| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+
 ```json
 {    
   "cardId": "2qw234e"
 }
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.** Must be between 1 and 36 bytes in UTF-8 encoding|
 
-### Response
+** Response**
 
 ```json
 {  
@@ -431,7 +589,9 @@ Card Unlock
 ```
 ## CancelCard
 
-**POST/CancelCard**
+**HTTP request**
+
+**POST /CancelCard**
 
 **Summary**
 
@@ -445,14 +605,15 @@ Card Cancellation
 
 **RequestBody**
 
+| Parameter | Type    |Required or not | Description                       |
+| :-------- | :-------|:-------------- | :-------------------------------- |
+| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+
 ```json
 {    
   "cardId": "2qw234e"
 }
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.** Must be between 1 and 36 bytes in UTF-8 encoding|
 
 **Response**
 
@@ -467,7 +628,9 @@ Card Cancellation
 
 ## EstimateCardTopUpFee
 
-**POST/EstimateCardTopUpFee**
+**HTTP request**
+
+**POST /EstimateCardTopUpFee**
 
 **Summary**
 
@@ -481,16 +644,17 @@ Card Estimation TopUp Fee
 
 **RequestBody**
 
+| Parameter | Type    |Required or not  | Description                       |
+| :-------- | :-------|:----------------| :-------------------------------- |
+|  cardId   | string  |       N         |Must be between 1 and 36 bytes in UTF-8 encoding|
+|  amount   | string  |       N         |Must be between 1 and 10 bytes in UTF-8 encoding	|
+
 ```json
 {    
   "cardId": "2qw234e",
   "amount": "100"
 }
 ```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-|  cardId   | string   |Must be between 1 and 36 bytes in UTF-8 encoding|
-|  amount   | string   |Must be between 1 and 10 bytes in UTF-8 encoding	|
 
 **Response**
 
@@ -505,7 +669,9 @@ Card Estimation TopUp Fee
 
 ## CardDetails
 
-**Get/CardDetails**
+**HTTP request**
+
+**Get /CardDetails/{cardId}**
 
 **Summary**
 
@@ -517,16 +683,9 @@ Card Details
 
 - **Content-Type:** application/json
 
-**RequestBody**
-
-```json
-{    
-  "cardId": "2qw234e"
-}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.**	Must be between 1 and 36 bytes in UTF-8 encoding|
+| Parameter | Type     |Required or not| Description                       |
+| :-------- | :------- |:--------------| :-------------------------------- |
+| cardId    | string   |       Y       |Must be between 1 and 36 bytes in UTF-8 encoding|
 
 
 **Response**
@@ -541,7 +700,9 @@ Card Details
 
 ## PinDetails
 
-**Get/PinDetails**
+**HTTP request**
+
+**Get /PinDetails/{cardId}**
 
 **Summary**
 
@@ -553,16 +714,9 @@ Pin Details
 
 - **Content-Type:** application/json
 
-**RequestBody**
-
-```json
-{    
-  "cardId": "2qw234e"
-}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.**	Must be between 1 and 36 bytes in UTF-8 encoding|
+| Parameter | Type     |Required or not |Description                       |
+| :-------- | :------- |:-------------- |:-------------------------------- |
+| cardId    | string   |       Y         |Must be between 1 and 36 bytes in UTF-8 encoding|
 
 
 **Response**
@@ -575,7 +729,9 @@ Pin Details
 ```
 ## CardBalance
 
-**Get/CardBalance**
+**HTTP request**
+
+**Get /CardBalance**
 
 **Summary**
 
@@ -587,17 +743,10 @@ Card Balance
 
 - **Content-Type:** application/json
 
-**RequestBody**
 
-```json
-{    
-  "cardId": "2qw234e"
-}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| cardId    | string   |**Required.**	Must be between 1 and 36 bytes in UTF-8 encoding|
-
+| Parameter | Type     |Required or not |Description                       |
+| :-------- | :------- |:-------------- |:-------------------------------- |
+| cardId    | string   |       Y         |Must be between 1 and 36 bytes in UTF-8 encoding|
 
 **Response**
 
@@ -619,7 +768,9 @@ Card Balance
 
 ## Countries
 
-**Get/Countries**
+**HTTP request**
+
+**Get /Countries**
 
 **Summary**
 
@@ -644,7 +795,9 @@ Countries
 
 ## Towns
 
-**Get/Towns**
+**HTTP request**
+
+**Get /Towns**
 
 **Summary**
 
@@ -665,143 +818,4 @@ Towns
  }
  ```
 
-# Merchant Information
 
-**Get /Merchant**
-
-**Summary**
-
-Merchant
-
-**Headers**
-
-- **Content-Type:** application/json
-
-**Response**
-
-```json
-{  
- "name": "Jhon",
- "email":"Jhon@gmail.com",
-  "mobile":"9398909890",
-  "Balance":
-  {
-  "currency":"USD",
-    "currencyCode":"USD",
-    "network":"TRC-20",
-    "amount":"100"
-  },
-  "Programs":
-  {
-  "programId": "550e8400-e29b-41d4-a716-446655440000",
-  "bin": 123456,
-  "name": "Premium Card",
-  "currency": "USD",
-  "type": "Debit",
-  "consumptionMethod": "Online",
-  "isoCountryName": "United States",
-  "cardFee": 15.99,
-  "cardOpeningFee": 5.00,
-  "firstRechargeAmount": 50.00,
-  "cancellationFeeMin": 5.00,
-  "cancellationFeeMax": 25.00,
-  "freightFee": 2.50,
-  "rechargeFeeMin": 1.00,
-  "rechargeFeeMax": 10.00,
-  "transactionFee": 0.50,
-  "atmWithdrawalFee": 2.00,
-  "maintenanceFee": 1.50,
-  "atmBalanceInquiryFee": 0.50,
-  "monthlyRechargeLimit": 1000.00,
-  "dailyRechargeLimit": 300.00,
-  "singleRechargeLimit": 200.00,
-  "perPaymentLimit": 150.00,
-  "atmDailyWithdrawalLimit": 500.00,
-  "spendingLimit": 1000.00,
-  "reviewTime": "2024-10-10T12:00:00Z",
-  "cardState": "Active",
-  "note": "First card issuance",
-  "remarks": "For premium users only",
-  "isKycRequired": "Yes",
-  "supportedOperationTypes": "Purchase, Transfer",
-  "cardImage": "https://example.com/images/card.png",
-  "supportedPlatforms": "iOS, Android, Web",
-  "TopUpTokens":
-  {
-  "token": "abcdef1234567890",
-  "network": "Visa",
-  "address": "123 Main St, Anytown, USA"
-  }
-}
- }
- ```
- 
- # Programdetails
-
-**Get/programdetails**
-
-**Summary**
-
-Programdetails
-
-**Request**
-
-**Headers**
-
-- **Content-Type:** application/json
-
-**RequestBody**
-
-```json
-{    
-  "programid": "2qw234e"
-}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| programid    | string   |**Required.**	Must be between 1 and 36 bytes in UTF-8 encoding|
-
-**Response**
-```JSON
-{
-  "programId": "550e8400-e29b-41d4-a716-446655440000",
-  "bin": 123456,
-  "name": "Premium Card",
-  "currency": "USD",
-  "type": "Debit",
-  "consumptionMethod": "Online",
-  "isoCountryName": "United States",
-  "cardFee": 15.99,
-  "cardOpeningFee": 5.00,
-  "firstRechargeAmount": 50.00,
-  "cancellationFeeMin": 5.00,
-  "cancellationFeeMax": 25.00,
-  "freightFee": 2.50,
-  "rechargeFeeMin": 1.00,
-  "rechargeFeeMax": 10.00,
-  "transactionFee": 0.50,
-  "atmWithdrawalFee": 2.00,
-  "maintenanceFee": 1.50,
-  "atmBalanceInquiryFee": 0.50,
-  "monthlyRechargeLimit": 1000.00,
-  "dailyRechargeLimit": 300.00,
-  "singleRechargeLimit": 200.00,
-  "perPaymentLimit": 150.00,
-  "atmDailyWithdrawalLimit": 500.00,
-  "spendingLimit": 1000.00,
-  "reviewTime": "2024-10-10T12:00:00Z",
-  "cardState": "Active",
-  "note": "First card issuance",
-  "remarks": "For premium users only",
-  "isKycRequired": "Yes",
-  "supportedOperationTypes": "Purchase, Transfer",
-  "cardImage": "https://example.com/images/card.png",
-  "supportedPlatforms": "iOS, Android, Web",
-  "TopUpTokens":
-  {
-  "token": "abcdef1234567890",
-  "network": "Visa",
-  "address": "123 Main St, Anytown, USA"
-  }
-}
-```
