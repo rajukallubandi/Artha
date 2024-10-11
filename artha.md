@@ -140,40 +140,35 @@ Apply for a card using the specified program ID.
 | kyc       | object  |               |{}                                 |
 
 
-| Parameter | Type  |Required or not| Description                          |
-|:----------|:------|:--------------|:-----------------------------------
-|firstname	|string	|Required	    |First name of the individual              |
-|lastname	|string	|Required	    |Last name of the individual               |
-|gender	    |integer|Required	    |Gender of the individual (0 for unspecified)|
-|dob	    |string	|Required	    |Date of birth                              |
-|nationality
-          id|string	|Required	    |Nationality ID                             |
-|email	    |string	|Required	    |Email                                      |
-|mobilecode	|string	|Required	    |Mobile code (country code)                 |
-|mobile	    |string	|Required	    |Mobile number                              |
-|address	|string	|Required	    |Residential address                        |
-|town	    |string	|Required	    |Town or locality                           |
-|city	    |string	|Required	    |City                                       |
-|state	    |string	|Required	    |State or region                            |
-|zipcode	|string	|Required	    |Postal code                                |
-|countryid	|string	|Required	    |Country ID                                 |
-|country
-isothree	|string	|Required	    |ISO 3166-1 alpha-3 country code            |
-|emergency
-contact     |string |Required	    |Emergency contact number                   |
-|doctype	|integer|Required	    |Document type (0 for unspecified)          |
-|docid	    |string	|Required	    |Document ID                                |
-|frontdoc	|string	|Required	    |Front image of the document                |
-|backdoc	|string	|Required	    |Back image of the document                 |
-|docexpire
-        date|string	|Required	    |Expiry date of the document                |
-|docneve 
-      expire|integer|Required	    |Indicates if the document has never expired (0 for no)|
-|handholdid
-   photo	|string	|Required	    |Handheld ID photo                           |
-|biomatric	|string	|Required	    |Biometric data                              |
-|photo	    |string	|Required	    |Personal photo                              |
-|signimage	|string	|Required	    |Signature image                             |
+| Parameter        | Type   |Required or not| Description                          |
+|:-----------------|:------ |:--------------|:-----------------------------------
+|firstname	       |string	|Required	    |First name of the individual              |
+|lastname	       |string	|Required	    |Last name of the individual               |
+|gender	           |integer |Required	    |Gender of the individual (0 for unspecified)|
+|dob	           |string	|Required	    |Date of birth                              |
+|nationalityid     |string	|Required	    |Nationality ID                             |
+|email	           |string	|Required	    |Email                                      |
+|mobilecode	       |string	|Required	    |Mobile code (country code)                 |
+|mobile	           |string	|Required	    |Mobile number                              |
+|address	       |string	|Required	    |Residential address                        |
+|town	           |string	|Required	    |Town or locality                           |
+|city	           |string	|Required	    |City                                       |
+|state	           |string	|Required	    |State or region                            |
+|zipcode	       |string	|Required	    |Postal code                                |
+|countryid	       |string	|Required	    |Country ID                                 |
+|countryisothree   |string	|Required	    |ISO 3166-1 alpha-3 country code            |
+|emergencycontact  |string  |Required	    |Emergency contact number                   |
+|doctype	       |integer |Required	    |Document type (0 for unspecified)          |
+|docid	           |string	|Required	    |Document ID                                |
+|frontdoc	       |string	|Required	    |Front image of the document                |
+|backdoc	       |string	|Required	    |Back image of the document                 |
+|docexpiredate     |string	|Required	    |Expiry date of the document                |
+|docneveexpire     |integer |Required	    |Indicates if the document has never expired (0 for no)|
+|handholdidphoto   |string	|Required	    |Handheld ID photo                           |
+|biomatric	       |string	|Required	    |Biometric data                              |
+|photo	           |string	|Required	    |Personal photo                              |
+|signimage	       |string	|Required	    |Signature image                             |
+
 
 ```json
 {
@@ -245,40 +240,34 @@ Binding KYC
 | KYC       | object   |{}                                                                                           |
 
 
-| Parameter | Type  |Required or not| Description                          |
-|:----------|:------|:--------------|:-----------------------------------
-|firstname	|string	|Required	    |First name of the individual              |
-|lastname	|string	|Required	    |Last name of the individual               |
-|gender	    |integer|Required	    |Gender of the individual (0 for unspecified)|
-|dob	    |string	|Required	    |Date of birth                              |
-|nationality
-          id|string	|Required	    |Nationality ID                             |
-|email	    |string	|Required	    |Email                                      |
-|mobilecode	|string	|Required	    |Mobile code (country code)                 |
-|mobile	    |string	|Required	    |Mobile number                              |
-|address	|string	|Required	    |Residential address                        |
-|town	    |string	|Required	    |Town or locality                           |
-|city	    |string	|Required	    |City                                       |
-|state	    |string	|Required	    |State or region                            |
-|zipcode	|string	|Required	    |Postal code                                |
-|countryid	|string	|Required	    |Country ID                                 |
-|country
-isothree	|string	|Required	    |ISO 3166-1 alpha-3 country code            |
-|emergency
-contact     |string |Required	    |Emergency contact number                   |
-|doctype	|integer|Required	    |Document type (0 for unspecified)          |
-|docid	    |string	|Required	    |Document ID                                |
-|frontdoc	|string	|Required	    |Front image of the document                |
-|backdoc	|string	|Required	    |Back image of the document                 |
-|docexpire
-        date|string	|Required	    |Expiry date of the document                |
-|docneve 
-      expire|integer|Required	    |Indicates if the document has never expired (0 for no)|
-|handholdid
-   photo	|string	|Required	    |Handheld ID photo                           |
-|biomatric	|string	|Required	    |Biometric data                              |
-|photo	    |string	|Required	    |Personal photo                              |
-|signimage	|string	|Required	    |Signature image                             |
+| Parameter        | Type   |Required or not| Description                          |
+|:-----------------|:------ |:--------------|:-----------------------------------
+|firstname	       |string	|Required	    |First name of the individual              |
+|lastname	       |string	|Required	    |Last name of the individual               |
+|gender	           |integer |Required	    |Gender of the individual (0 for unspecified)|
+|dob	           |string	|Required	    |Date of birth                              |
+|nationalityid     |string	|Required	    |Nationality ID                             |
+|email	           |string	|Required	    |Email                                      |
+|mobilecode	       |string	|Required	    |Mobile code (country code)                 |
+|mobile	           |string	|Required	    |Mobile number                              |
+|address	       |string	|Required	    |Residential address                        |
+|town	           |string	|Required	    |Town or locality                           |
+|city	           |string	|Required	    |City                                       |
+|state	           |string	|Required	    |State or region                            |
+|zipcode	       |string	|Required	    |Postal code                                |
+|countryid	       |string	|Required	    |Country ID                                 |
+|countryisothree   |string	|Required	    |ISO 3166-1 alpha-3 country code            |
+|emergencycontact  |string  |Required	    |Emergency contact number                   |
+|doctype	       |integer |Required	    |Document type (0 for unspecified)          |
+|docid	           |string	|Required	    |Document ID                                |
+|frontdoc	       |string	|Required	    |Front image of the document                |
+|backdoc	       |string	|Required	    |Back image of the document                 |
+|docexpiredate     |string	|Required	    |Expiry date of the document                |
+|docneveexpire     |integer |Required	    |Indicates if the document has never expired (0 for no)|
+|handholdidphoto   |string	|Required	    |Handheld ID photo                           |
+|biomatric	       |string	|Required	    |Biometric data                              |
+|photo	           |string	|Required	    |Personal photo                              |
+|signimage	       |string	|Required	    |Signature image                             |
 
 ```json
 {
