@@ -6,7 +6,7 @@
     - [Connection Method](#Connection-Method)
     - [API Specification](#API-Specification)
     - [SHA256WithRSA Signature](#SHA256WithRSA-Signature) 
-- [API Reference](#API Reference)	
+- [API Reference](#API-Reference)	
     - [Merchant Information](#Merchant-Information)
     - [Programdetails](#Programdetails)	
     - [ApplyCard](#ApplyCard)
