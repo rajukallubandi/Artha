@@ -492,10 +492,8 @@ Card Recharge
 
 ```json
 {    
-  "taskId": "2qw234e",
-  "cardno": "2345678",
-  "status": "Submit",
-  "remarks": "CardInProgress"
+  "cardId": "2345678",
+  "amount": "100"
 }
 
 ```
