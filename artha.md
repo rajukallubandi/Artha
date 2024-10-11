@@ -121,7 +121,7 @@ and the merchant must exchange public keys, which will be used for validating re
 
 **HTTP request**
 
-**Get /Merchant**
+**Get /MerchantInformation/Merchant**
 
 **Summary**
 
@@ -131,7 +131,7 @@ Merchant
 
 - **Content-Type:** application/json
 
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -194,7 +194,7 @@ Merchant
  
  **HTTP request**
 
-**Get /programdetails/{programid}**
+**Get /MerchantInformation/programdetails/{programid}**
 
 **Summary**
 
@@ -212,14 +212,14 @@ Programdetails
 | :-------- | :-------|:---------------| :-------------------------------- |
 | programid | string  |        Y        |Must be between 1 and 36 bytes in UTF-8 encoding|
 
-```json
+```path parameter
 {    
-  "programid": "2qw234e"
+  "programid": "76ddcaab-55c4-46e0-8d80-e7d097bfc1b3"
 }
 ```
 
 
-**Response**
+**Response Example**
 ```JSON
 {
   "programId": "550e8400-e29b-41d4-a716-446655440000",
@@ -290,32 +290,32 @@ Apply for a card using the specified program ID.
 
 | Parameter        | Type   |Required or not| Description                          |
 |:-----------------|:------ |:--------------|:-----------------------------------
-|firstname	       |string	|Required	    |First name of the individual              |
-|lastname	       |string	|Required	    |Last name of the individual               |
-|gender	           |integer |Required	    |Gender of the individual (0 for unspecified)|
-|dob	           |string	|Required	    |Date of birth                              |
-|nationalityid     |string	|Required	    |Nationality ID                             |
-|email	           |string	|Required	    |Email                                      |
-|mobilecode	       |string	|Required	    |Mobile code (country code)                 |
-|mobile	           |string	|Required	    |Mobile number                              |
-|address	       |string	|Required	    |Residential address                        |
-|town	           |string	|Required	    |Town or locality                           |
-|city	           |string	|Required	    |City                                       |
-|state	           |string	|Required	    |State or region                            |
-|zipcode	       |string	|Required	    |Postal code                                |
-|countryid	       |string	|Required	    |Country ID                                 |
-|countryisothree   |string	|Required	    |ISO 3166-1 alpha-3 country code            |
-|emergencycontact  |string  |Required	    |Emergency contact number                   |
-|doctype	       |integer |Required	    |Document type (0 for unspecified)          |
-|docid	           |string	|Required	    |Document ID                                |
-|frontdoc	       |string	|Required	    |Front image of the document                |
-|backdoc	       |string	|Required	    |Back image of the document                 |
-|docexpiredate     |string	|Required	    |Expiry date of the document                |
-|docneveexpire     |integer |Required	    |Indicates if the document has never expired (0 for no)|
-|handholdidphoto   |string	|Required	    |Handheld ID photo                           |
-|biomatric	       |string	|Required	    |Biometric data                              |
-|photo	           |string	|Required	    |Personal photo                              |
-|signimage	       |string	|Required	    |Signature image                             |
+|firstname	       |string	|        	    |First name of the individual              |
+|lastname	       |string	|               |Last name of the individual               |
+|gender	           |integer |       	    |Gender of the individual (0 for unspecified)|
+|dob	           |string	|               |Date of birth                              |
+|nationalityid     |string	|	            |Nationality ID                             |
+|email	           |string	|	            |Email                                      |
+|mobilecode	       |string	|	            |Mobile code (country code)                 |
+|mobile	           |string	|               |Mobile number                              |
+|address	       |string	|	            |Residential address                        |
+|town	           |string	|               |Town or locality                           |
+|city	           |string	|	            |City                                       |
+|state	           |string	|	            |State or region                            |
+|zipcode	       |string	|	            |Postal code                                |
+|countryid	       |string	|	            |Country ID                                 |
+|countryisothree   |string	|	            |ISO 3166-1 alpha-3 country code            |
+|emergencycontact  |string  |	            |Emergency contact number                   |
+|doctype	       |integer |	            |Document type (0 for unspecified)          |
+|docid	           |string	|	            |Document ID                                |
+|frontdoc	       |string	|	            |Front image of the document                |
+|backdoc	       |string	|	            |Back image of the document                 |
+|docexpiredate     |string	|	            |Expiry date of the document                |
+|docneveexpire     |integer |	            |Indicates if the document has never expired (0 for no)|
+|handholdidphoto   |string	|	            |Handheld ID photo                          |
+|biomatric	       |string	|	            |Biometric data                             |
+|photo	           |string	|	            |Personal photo                             |
+|signimage	       |string	|               |Signature image                            |
 
 
 ```json
@@ -353,7 +353,7 @@ Apply for a card using the specified program ID.
 ```
 
 
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -392,32 +392,32 @@ Binding KYC
 
 | Parameter        | Type   |Required or not| Description                          |
 |:-----------------|:------ |:--------------|:-----------------------------------
-|firstname	       |string	|Required	    |First name of the individual              |
-|lastname	       |string	|Required	    |Last name of the individual               |
-|gender	           |integer |Required	    |Gender of the individual (0 for unspecified)|
-|dob	           |string	|Required	    |Date of birth                              |
-|nationalityid     |string	|Required	    |Nationality ID                             |
-|email	           |string	|Required	    |Email                                      |
-|mobilecode	       |string	|Required	    |Mobile code (country code)                 |
-|mobile	           |string	|Required	    |Mobile number                              |
-|address	       |string	|Required	    |Residential address                        |
-|town	           |string	|Required	    |Town or locality                           |
-|city	           |string	|Required	    |City                                       |
-|state	           |string	|Required	    |State or region                            |
-|zipcode	       |string	|Required	    |Postal code                                |
-|countryid	       |string	|Required	    |Country ID                                 |
-|countryisothree   |string	|Required	    |ISO 3166-1 alpha-3 country code            |
-|emergencycontact  |string  |Required	    |Emergency contact number                   |
-|doctype	       |integer |Required	    |Document type (0 for unspecified)          |
-|docid	           |string	|Required	    |Document ID                                |
-|frontdoc	       |string	|Required	    |Front image of the document                |
-|backdoc	       |string	|Required	    |Back image of the document                 |
-|docexpiredate     |string	|Required	    |Expiry date of the document                |
-|docneveexpire     |integer |Required	    |Indicates if the document has never expired (0 for no)|
-|handholdidphoto   |string	|Required	    |Handheld ID photo                           |
-|biomatric	       |string	|Required	    |Biometric data                              |
-|photo	           |string	|Required	    |Personal photo                              |
-|signimage	       |string	|Required	    |Signature image                             |
+|firstname	       |string	|        	    |First name of the individual              |
+|lastname	       |string	|               |Last name of the individual               |
+|gender	           |integer |       	    |Gender of the individual (0 for unspecified)|
+|dob	           |string	|               |Date of birth                              |
+|nationalityid     |string	|	            |Nationality ID                             |
+|email	           |string	|	            |Email                                      |
+|mobilecode	       |string	|	            |Mobile code (country code)                 |
+|mobile	           |string	|               |Mobile number                              |
+|address	       |string	|	            |Residential address                        |
+|town	           |string	|               |Town or locality                           |
+|city	           |string	|	            |City                                       |
+|state	           |string	|	            |State or region                            |
+|zipcode	       |string	|	            |Postal code                                |
+|countryid	       |string	|	            |Country ID                                 |
+|countryisothree   |string	|	            |ISO 3166-1 alpha-3 country code            |
+|emergencycontact  |string  |	            |Emergency contact number                   |
+|doctype	       |integer |	            |Document type (0 for unspecified)          |
+|docid	           |string	|	            |Document ID                                |
+|frontdoc	       |string	|	            |Front image of the document                |
+|backdoc	       |string	|	            |Back image of the document                 |
+|docexpiredate     |string	|	            |Expiry date of the document                |
+|docneveexpire     |integer |	            |Indicates if the document has never expired (0 for no)|
+|handholdidphoto   |string	|	            |Handheld ID photo                          |
+|biomatric	       |string	|	            |Biometric data                             |
+|photo	           |string	|	            |Personal photo                             |
+|signimage	       |string	|               |Signature image                            |
 
 ```json
 {
@@ -456,7 +456,7 @@ Binding KYC
 
 ```
 
-**Response**
+**Response Example**
 
 ```json
 {    
@@ -500,7 +500,7 @@ Card Recharge
 
 ```
 
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -531,7 +531,7 @@ Card Lock
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string  |       Y        | Must be between 1 and 36 bytes in UTF-8 encoding|
 
 ```json
 {    
@@ -539,7 +539,7 @@ Card Lock
 }
 
 ```
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -577,7 +577,7 @@ Card Unlock
 }
 
 ```
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -615,7 +615,7 @@ Card Cancellation
 }
 ```
 
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -656,7 +656,7 @@ Card Estimation TopUp Fee
 }
 ```
 
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -686,9 +686,13 @@ Card Details
 | Parameter | Type     |Required or not| Description                       |
 | :-------- | :------- |:--------------| :-------------------------------- |
 | cardId    | string   |       Y       |Must be between 1 and 36 bytes in UTF-8 encoding|
+``` path parameter
+{
+"cardId":"76ddcaab-55c4-46e0-8d80-e7d097bfc1b3"
+}
+```
 
-
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -716,10 +720,15 @@ Pin Details
 
 | Parameter | Type     |Required or not |Description                       |
 | :-------- | :------- |:-------------- |:-------------------------------- |
-| cardId    | string   |       Y         |Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string   |       Y        |Must be between 1 and 36 bytes in UTF-8 encoding|
 
+``` path parameter
+{
+"cardId":"76ddcaab-55c4-46e0-8d80-e7d097bfc1b3"
+}
+```
 
-**Response**
+**Response Example**
 
 ```json
 {  
@@ -731,7 +740,7 @@ Pin Details
 
 **HTTP request**
 
-**Get /CardBalance**
+**Get /CardBalance/{cardId}**
 
 **Summary**
 
@@ -748,8 +757,13 @@ Card Balance
 | :-------- | :------- |:-------------- |:-------------------------------- |
 | cardId    | string   |       Y         |Must be between 1 and 36 bytes in UTF-8 encoding|
 
-**Response**
+``` path parameter
+{
+"cardId":"76ddcaab-55c4-46e0-8d80-e7d097bfc1b3"
+}
+```
 
+**Response Example**
 ```json
 {  
  "code": "200",
