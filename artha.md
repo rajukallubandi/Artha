@@ -543,6 +543,48 @@ Card Recharge
   "remarks": "CardInProgress"
 }
 ```
+## CardSetPin
+**HTTP request**
+
+**POST /CardSetPin**
+
+**Summary**
+
+card Set Pin
+
+**Request**
+
+**Headers**
+
+- **Content-Type:** application/json
+
+**RequestBody**
+
+| Parameter | Type    |Required or not | Description                       |
+| :-------- | :-------|:-------------- | :-------------------------------- |
+| cardId    | string  |       Y        | Must be between 1 and 36 bytes in UTF-8 encoding|
+| signimage | string  |       Y        | Must be between 1 and 10 bytes in UTF-8 encoding|
+
+
+```json
+{    
+  "cardId": "2345678",
+  "signimage": "signimage"
+}
+
+```
+
+**Response Example**
+
+```json
+{  
+  "taskId": "2qw234e",
+  "referenceId": "23456",
+  "status": "Submit",
+  "remarks": "CardSetPin SuccesFully!"
+}
+```
+
 
 ## CardFreeze
 
