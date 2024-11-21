@@ -14,6 +14,7 @@
     - [ApplyCard](#ApplyCard)
     - [Binding](#Binding)
     - [CardTopUp](#CardTopUp)
+    - [CardSetPin](#CardSetPin)
     - [CardFreeze](#CardFreeze)
     - [CardUnFreeze](#CardUnFreeze)
     - [CancelCard](#CancelCard)
