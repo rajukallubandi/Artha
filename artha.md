@@ -26,8 +26,7 @@
     - [Countries](#Countries)
     - [Towns](#Towns)
 - [Callback notification](#Callback-notification)
-       - [Set callback notification url](#Set-callback-notification-url)
-       - [Callback notification type](#Callback-notification-type)
+       - [Callbacknotificationtype](#Callback-notification-type)
 	   - [Global Express Remittance Payment result callback notification](#Global-Express-Remittance-Payment-result-callback-notification)
 	   - [Global Express Remittance Adjustment callback notification](#Global-Express-Remittance-Adjustment-callback-notification)
 	   - [User KYC callback notification](#User-KYC-callback-notification)
@@ -951,7 +950,7 @@ Towns
  }
  ```
 # Callback notification
-## Set callback notification url
+
 This interface is used to set callback notification URL.
 
 Please set the callback notification address in the merchant basic information in the merchant backend system. All callback notifications share this URL, and use notifyType to distinguish different notification contents
