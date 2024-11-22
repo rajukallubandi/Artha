@@ -39,12 +39,12 @@
 - [Callback notification](#Callback-notification)	
     - [Callback-notificationtype](#Merchant-Information)
     - [GlobalExpressRemittancePaymentresultcallbacknotification](#GlobalExpressRemittancePaymentresultcallbacknotification)	
-    - [ApplyCard](#ApplyCard)
-    - [Binding](#Binding)
-    - [CardTopUp](#CardTopUp)
-    - [CardSetPin](#CardSetPin)
-    - [CardFreeze](#CardFreeze)
-    - [CardUnFreeze](#CardUnFreeze)
+    - [GlobalExpressRemittanceAdjustmentcallbacknotification](#GlobalExpressRemittanceAdjustmentcallbacknotification)
+    - [UserKYCcallbacknotification](#UserKYCcallbacknotification)
+    - [Bankcardcallbacknotificationofcardrechargeresult](#Bankcardcallbacknotificationofcardrechargeresult)
+    - [Bankcardactivationresultcallbacknotification](#Bankcardactivationresultcallbacknotification)
+    - [Bankcardfreezethawprocessingstatuscallbacknotification](#Bankcardfreezethawprocessingstatuscallbacknotification)
+    - [Bankcard3DSverification](#Bankcard3DSverification)
 
 
 
