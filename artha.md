@@ -11,7 +11,7 @@
 - [API Reference](#API-Reference)	
     - [Merchant Information](#Merchant-Information)
     - [Programdetails](#Programdetails)	
-	- [KYC Requirements](#KYC Requirements)
+	- [KYCRequirements](#KYCRequirements)
     - [ApplyCard](#ApplyCard)
     - [Binding](#Binding)
     - [CardTopUp](#CardTopUp)
@@ -315,8 +315,8 @@ Programdetails
 
 ## KYC Requirements
 - **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
-| Parameter           | Type   | Required or not | Description                                                |
-|:--------------------|:-------|:----------------|:-----------------------------------------------------------|
+| Parameter           | Type   | Required or not  | Description                                                |
+|:--------------------|:-------|:---------------- |:-----------------------------------------------------------|
 | PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
 | Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
 | FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
@@ -330,7 +330,6 @@ Programdetails
 | Sign                | Array  | Required         | Contains field: SignImage.                                 |
 | Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
 
-``
 
 ## ApplyCard
 
