@@ -25,17 +25,8 @@
     - [CardUnFreeze](#CardUnFreeze)
     - [Countries](#Countries)
     - [Towns](#Towns)
-- [Callback notification](#Callback-notification)
-       - [Callbacknotificationtype](#Callback-notification-type)
-	   - [Global Express Remittance Payment result callback notification](#Global-Express-Remittance-Payment-result-callback-notification)
-	   - [Global Express Remittance Adjustment callback notification](#Global-Express-Remittance-Adjustment-callback-notification)
-	   - [User KYC callback notification](#User-KYC-callback-notification)
-	   - [Bank card callback notification of card recharge result](#Bank-card-callback-notification-of-card-recharge-result)
-	   - [Bank card activation result callback notification](#Bank-card-activation-result-callback-notification)
-       - [Bank card freeze thaw processing status callback notification](#Bank-card-freeze-thaw-processing-status-callback-notification)
-	   - [Bank card 3DS verification](#Bank-card-3DS-verification)
-
---------------------------------------------------------------------------------------------------
+	
+	
 - [Callback notification](#Callback-notification)	
     - [Callback-notificationtype](#Merchant-Information)
     - [GlobalExpressRemittancePaymentresultcallbacknotification](#GlobalExpressRemittancePaymentresultcallbacknotification)	
@@ -45,15 +36,6 @@
     - [Bankcardactivationresultcallbacknotification](#Bankcardactivationresultcallbacknotification)
     - [Bankcardfreezethawprocessingstatuscallbacknotification](#Bankcardfreezethawprocessingstatuscallbacknotification)
     - [Bankcard3DSverification](#Bankcard3DSverification)
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------
-
-
 
 
 # Introduction
