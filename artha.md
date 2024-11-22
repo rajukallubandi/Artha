@@ -174,7 +174,7 @@ Merchant
  "name": "Jhon",
  "email":"Jhon@gmail.com",
   "mobile":"9398909890",
-  "Balance":
+  "balances":
   {
   "currency":"USD",
     "currencyCode":"USD",
@@ -212,16 +212,21 @@ Merchant
   "cardState": "Active",
   "note": "First card issuance",
   "remarks": "For premium users only",
-  "isKycRequired": "Yes",
   "supportedOperationTypes": "Purchase, Transfer",
   "cardImage": "https://example.com/images/card.png",
   "supportedPlatforms": "iOS, Android, Web",
-  "TopUpTokens":
-  {
-  "token": "abcdef1234567890",
-  "network": "Visa",
-  "address": "123 Main St, Anytown, USA"
-  }
+  "topUpTokens": [
+    {
+      "token": "USDT",
+      "network": "TRC-20",
+      "address": "000xxx"
+    }
+  ],
+  "kycRequiredWhileApplyCard": true,
+  "kycRequirements": "string",
+  "kycType": "string",
+  "needPhotoForActiveCard": true,
+  "needPhotoForOperateCard": true
 }
  }
  ```
@@ -291,12 +296,18 @@ Programdetails
   "supportedOperationTypes": "Purchase, Transfer",
   "cardImage": "https://example.com/images/card.png",
   "supportedPlatforms": "iOS, Android, Web",
-  "TopUpTokens":
-  {
-  "token": "abcdef1234567890",
-  "network": "Visa",
-  "address": "123 Main St, Anytown, USA"
-  }
+  "topUpTokens": [
+    {
+      "token": "USDT",
+      "network": "TRC-20",
+      "address": "000xxx"
+    }
+  ],
+  "kycRequiredWhileApplyCard": true,
+  "kycRequirements": "string",
+  "kycType": "string",
+  "needPhotoForActiveCard": true,
+  "needPhotoForOperateCard": true
 }
 ```
 
@@ -394,7 +405,6 @@ Apply for a card using the specified program ID.
 ```json
 {  
   "taskId": "2qw234e",
-  "referenceId": "23456",
   "status": "Submit",
   "remarks": "CardInProgress"
 }
@@ -418,12 +428,13 @@ Binding KYC
 
 **Request Body**
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| taskId    | string   |  must be between 1 and 36 bytes in UTF-8 encoding |
-| cardNumber| string   |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
-|envelopeNo | string   |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
-| kyc       | object   |{}                                                                                           |
+| Parameter     | Type     | Description                       |
+| :-------------|:-------- | :-------------------------------- |
+| taskId        | string   |  must be between 1 and 36 bytes in UTF-8 encoding |
+| cardNumber    | string   |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
+|envelopeNo     | string   |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
+|handholdidphoto|string    | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
+| kyc       | object       |{}                                                                                           |
 
 
 | Parameter        | Type   |Required or not| Description                          |
@@ -522,8 +533,8 @@ Card Recharge
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
-| amount    | string  |       Y         | Must be between 1 and 10 bytes in UTF-8 encoding|
+| cardId    | string  |       Y        | Bank CardId                       |
+| amount    | string  |       Y        | TopUp Amount                      |
 
 
 ```json
@@ -539,7 +550,6 @@ Card Recharge
 ```json
 {  
   "taskId": "2qw234e",
-  "referenceId": "23456",
   "status": "Submit",
   "remarks": "CardInProgress"
 }
@@ -563,8 +573,8 @@ card Set Pin
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y        | Must be between 1 and 36 bytes in UTF-8 encoding|
-| signimage | string  |       Y        | Must be between 1 and 10 bytes in UTF-8 encoding|
+| cardId    | string  |       Y        |Bank CardId                        |
+| signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 
 ```json
@@ -580,7 +590,6 @@ card Set Pin
 ```json
 {  
   "taskId": "2qw234e",
-  "referenceId": "23456",
   "status": "Submit",
   "remarks": "CardSetPin SuccesFully!"
 }
@@ -607,7 +616,8 @@ Card Lock
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y        | Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string  |       Y        | Bank CardId                       |
+| signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 ```json
 {    
@@ -620,7 +630,6 @@ Card Lock
 ```json
 {  
  "taskId": "2qw234e",
-  "referenceId": "23456",
   "status": "Submit",
   "remarks": "CardInProgress"
 }
@@ -645,7 +654,8 @@ Card Unlock
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string  |       Y        | Bank CardId                       |
+| signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 ```json
 {    
@@ -658,7 +668,6 @@ Card Unlock
 ```json
 {  
  "taskId": "2qw234e",
-  "referenceId": "23456",
   "status": "Submit",
   "remarks": "CardInProgress"
 }
@@ -722,8 +731,8 @@ Card Estimation TopUp Fee
 
 | Parameter | Type    |Required or not  | Description                       |
 | :-------- | :-------|:----------------| :-------------------------------- |
-|  cardId   | string  |       N         |Must be between 1 and 36 bytes in UTF-8 encoding|
-|  amount   | string  |       N         |Must be between 1 and 10 bytes in UTF-8 encoding	|
+|  cardId   | string  |       y         |Bank CardId                        |
+|  amount   | string  |       y         | TopUp Amount	                    |
 
 ```json
 {    
@@ -761,7 +770,7 @@ Card Details
 
 | Parameter | Type     |Required or not| Description                       |
 | :-------- | :------- |:--------------| :-------------------------------- |
-| cardId    | string   |       Y       |Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string   |       Y       |Bank CardId                        |
 ``` path parameter
 {
 "cardId":"76ddcaab-55c4-46e0-8d80-e7d097bfc1b3"
@@ -796,7 +805,7 @@ Pin Details
 
 | Parameter | Type     |Required or not |Description                       |
 | :-------- | :------- |:-------------- |:-------------------------------- |
-| cardId    | string   |       Y        |Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string   |       Y        |Bank cardId                       |
 
 ``` path parameter
 {
@@ -831,7 +840,7 @@ Card Balance
 
 | Parameter | Type     |Required or not |Description                       |
 | :-------- | :------- |:-------------- |:-------------------------------- |
-| cardId    | string   |       Y         |Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string   |       Y        |Bank CardId                       |
 
 ``` path parameter
 {
