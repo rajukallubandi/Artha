@@ -33,7 +33,27 @@
 	   - [Bank card callback notification of card recharge result](#Bank-card-callback-notification-of-card-recharge-result)
 	   - [Bank card activation result callback notification](#Bank-card-activation-result-callback-notification)
        - [Bank card freeze thaw processing status callback notification](#Bank-card-freeze-thaw-processing-status-callback-notification)
-	   - [Bank card 3DS verification](#Bank card 3DS verification)
+	   - [Bank card 3DS verification](#Bank-card-3DS-verification)
+
+--------------------------------------------------------------------------------------------------
+- [Callback notification](#Callback-notification)	
+    - [Callback-notificationtype](#Merchant-Information)
+    - [GlobalExpressRemittancePaymentresultcallbacknotification](#GlobalExpressRemittancePaymentresultcallbacknotification)	
+    - [ApplyCard](#ApplyCard)
+    - [Binding](#Binding)
+    - [CardTopUp](#CardTopUp)
+    - [CardSetPin](#CardSetPin)
+    - [CardFreeze](#CardFreeze)
+    - [CardUnFreeze](#CardUnFreeze)
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
 
 
 # Introduction
