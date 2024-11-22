@@ -315,22 +315,22 @@ Programdetails
 ```
 
 ## KYC Requirements
-- **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
+- **Description:** Based on the program's KYC requirements , please check the KYC requirements and send the relevant type of response for KYC
 
-| Parameter           | Type   | Required or not  | Description                                                |
-|:--------------------|:-------|:---------------- |:-----------------------------------------------------------|
-| PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
-| Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
-| FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
-| FullName            | Array  | Required         | Contains fields: FirstName, LastName, Gender, DOB.         |
-| Comms               | Array  | Required         | Contains fields: Email, EmailMobileCode, Mobile.           |
-| EmergencyContact    | Array  | Required         | Contains field: EmergencyContactNumber.                    |
-| Address             | Array  | Required         | Contains field: Address.                                   |
-| FullAddress         | Array  | Required         | Contains fields: Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
-| HandedPassport      | Array  | Required         | Contains field: HandHoldIdPhoto.                           |
-| Face                | Array  | Required         | Contains field: Photo.                                     |
-| Sign                | Array  | Required         | Contains field: SignImage.                                 |
-| Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
+|  KYC Requirements   |Required or not  | Description                                                |
+|:--------------------|:----------------|:-----------------------------------------------------------|
+| PassportOnly        |  Required       |  DocType, DocId, Frontdoc, Backdoc.                        |
+| Passport            |  Required       |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
+| FullNameOnly        |  Required       |  FirstName, LastName.                                      |
+| FullName            |  Required       |  FirstName, LastName, Gender, DOB.                         |
+| Comms               |  Required       | Email, EmailMobileCode, Mobile.                            |
+| EmergencyContact    |  Required       |  EmergencyContactNumber.                                   |
+| Address             |  Required       |  Address.                                                  |
+| FullAddress         |  Required       | Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
+| HandedPassport      |  Required       |  HandHoldIdPhoto.                                          |
+| Face                |  Required       |  Photo.                                                    |
+| Sign                |  Required       |  SignImage.                                                |
+| Biomatric           |  Required       |  Biomatric.                                                |
 
 
 ## ApplyCard
