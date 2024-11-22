@@ -11,6 +11,7 @@
 - [API Reference](#API-Reference)	
     - [Merchant Information](#Merchant-Information)
     - [Programdetails](#Programdetails)	
+	- [KYC Requirements](#KYC Requirements)
     - [ApplyCard](#ApplyCard)
     - [Binding](#Binding)
     - [CardTopUp](#CardTopUp)
