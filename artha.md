@@ -26,15 +26,15 @@
     - [Countries](#Countries)
     - [Towns](#Towns)
 - [Callback notification](#Callback-notification)
-       - [Set callback notification url](#Set-callback-notification-url)
-       - [Callback notification type](#Callback-notification-type)
-	   - [Global Express Remittance Payment result callback notification](#Global-Express-Remittance-Payment-result-callback-notification)
+       - [Set callback notification url](#Set callback notification url)
+       - [Callback notification type](#Callback notification type)
+	   - [Global Express Remittance Payment result callback notification](#Global Express Remittance Payment result callback notification)
 	   - [Global Express Remittance Adjustment callback notification](#Global-Express-Remittance-Adjustment-callback-notification)
 	   - [User KYC callback notification](#User-KYC-callback-notification)
 	   - [Bank card callback notification of card recharge result](#Bank-card-callback-notification-of-card-recharge-result)
 	   - [Bank card activation result callback notification](#Bank-card-activation-result-callback-notification)
        - [Bank card freeze thaw processing status callback notification](#Bank-card-freeze-thaw-processing-status-callback-notification)
-	   - [Bank card 3DS verification](#Bank-card-3DS-verification)
+	   - [Bank card 3DS verification](#Bank card 3DS verification)
 
 
 # Introduction
@@ -90,7 +90,7 @@ To ensure security and verify the sender's identity, all open API requests are a
 |----------------|--------|----------|-------------------------------------------------------------------------------|
 | timestamp      | long   | true     | Unix timestamp (in second)                                                    |
 | nonce          | string | true     | Random 10 characters string                                                   |
-| Client token   | string | true     | Merchant identification, provided by Artha                                    |
+| CustomerToken   | string | true     | Merchant identification, provided by Artha Cards                                  |
 | signature      | string | true     | Signature of request body + header request                                    |
 
 
@@ -129,15 +129,15 @@ and the merchant must exchange public keys, which will be used for validating re
 
 
 ## Callback Notification Callback Parameters and Template
-| Parameters | Type | Whether it is required | Meaning |
-|:-------------|:---------|:------------|:-----------|
-| taskId | String | Y | response body |
-| Remarks | String | Y | Request flow id. 20 random characters |
-| Status	 | String | Y | Merchant ID. PayouCard assigned to merchants |
-| opt_code | String | Y | signature |
-| notifyType | String | Y | notification type |
-| amount	 | String | Y | notification type |
-| CreationTime	 | integer | Y | notification type |
+| Parameters | Type   | required or not | Description    |
+|:-----------|:-------|:---------|:-----------|
+| taskId     | String | Y        | taskId |
+| Remarks    | String | Y        | Remarks |
+| Status	 | String | Y        | Whether it was successful. Success: Failed.|
+| opt_code   | String | Y        | It's Kind Of OTP |
+| notifyType | String | Y        | notification type |
+| amount	 | String | Y        | Amount   |
+|CreationTime| integer| Y        | CreationTime |
 
 ## Callback Notification Response Parameters and Template
 | Parameters | Type | Whether it is required | Meaning |
@@ -334,20 +334,38 @@ Apply for a card using the specified program ID.
 | programId | string  |       Y       | must be between 1 and 36 bytes in UTF-8 encoding |
 | kyc       | object  |               |{}                                 |
 
+**KYC Requirements**
+- **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
+| Parameter           | Type   | Required or not | Description                                                |
+|:--------------------|:-------|:----------------|:-----------------------------------------------------------|
+| PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
+| Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
+| FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
+| FullName            | Array  | Required         | Contains fields: FirstName, LastName, Gender, DOB.         |
+| Comms               | Array  | Required         | Contains fields: Email, EmailMobileCode, Mobile.           |
+| EmergencyContact    | Array  | Required         | Contains field: EmergencyContactNumber.                    |
+| Address             | Array  | Required         | Contains field: Address.                                   |
+| FullAddress         | Array  | Required         | Contains fields: Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
+| HandedPassport      | Array  | Required         | Contains field: HandHoldIdPhoto.                           |
+| Face                | Array  | Required         | Contains field: Photo.                                     |
+| Sign                | Array  | Required         | Contains field: SignImage.                                 |
+| Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
+
+
 
 | Parameter        | Type   |Required or not| Description                          |
 |:-----------------|:------ |:--------------|:-----------------------------------
 |firstname	       |string	|        	    |First name of the individual              |
 |lastname	       |string	|               |Last name of the individual               |
-|gender	           |integer |       	    |Gender of the individual (0 for unspecified)|
-|dob	           |string	|               |Date of birth                              |
+|gender	           |integer |       	    |Gender (1: male, 2: female)                |
+|dob	           |string	|               |Birthday (yyyy-MM-dd)                      |
 |nationalityid     |string	|	            |Nationality ID                             |
 |email	           |string	|	            |Email                                      |
 |mobilecode	       |string	|	            |Mobile code (country code)                 |
 |mobile	           |string	|               |Mobile number                              |
 |address	       |string	|	            |Residential address                        |
-|town	           |string	|               |Town or locality                           |
-|city	           |string	|	            |City                                       |
+|town	           |string	|               |Town code. Please call the interface /Towns|
+|city	           |string	|	            |Country code. 2-digit code.Please call the interface /Countries |
 |state	           |string	|	            |State or region                            |
 |zipcode	       |string	|	            |Postal code                                |
 |countryid	       |string	|	            |Country ID                                 |
@@ -436,20 +454,36 @@ Binding KYC
 |handholdidphoto|string    | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
 | kyc       | object       |{}                                                                                           |
 
+**KYC Requirements**
+- **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
+| Parameter           | Type   | Required or not | Description                                                |
+|:--------------------|:-------|:----------------|:-----------------------------------------------------------|
+| PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
+| Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
+| FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
+| FullName            | Array  | Required         | Contains fields: FirstName, LastName, Gender, DOB.         |
+| Comms               | Array  | Required         | Contains fields: Email, EmailMobileCode, Mobile.           |
+| EmergencyContact    | Array  | Required         | Contains field: EmergencyContactNumber.                    |
+| Address             | Array  | Required         | Contains field: Address.                                   |
+| FullAddress         | Array  | Required         | Contains fields: Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
+| HandedPassport      | Array  | Required         | Contains field: HandHoldIdPhoto.                           |
+| Face                | Array  | Required         | Contains field: Photo.                                     |
+| Sign                | Array  | Required         | Contains field: SignImage.                                 |
+| Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
 
-| Parameter        | Type   |Required or not| Description                          |
-|:-----------------|:------ |:--------------|:-----------------------------------
-|firstname	       |string	|        	    |First name of the individual              |
-|lastname	       |string	|               |Last name of the individual               |
-|gender	           |integer |       	    |Gender of the individual (0 for unspecified)|
-|dob	           |string	|               |Date of birth                              |
+| Parameter        | Type   |Required or not| Description                               |
+|:-----------------|:------ |:--------------|:----------------------------------------  |
+|firstname	       |string	|        	    |First name of the individual               |
+|lastname	       |string	|               |Last name of the individual                |
+|gender	           |integer |       	    |Gender (1: male, 2: female)                |
+|dob	           |string	|               |Birthday (yyyy-MM-dd)                      |
 |nationalityid     |string	|	            |Nationality ID                             |
 |email	           |string	|	            |Email                                      |
 |mobilecode	       |string	|	            |Mobile code (country code)                 |
 |mobile	           |string	|               |Mobile number                              |
 |address	       |string	|	            |Residential address                        |
-|town	           |string	|               |Town or locality                           |
-|city	           |string	|	            |City                                       |
+|town	           |string	|               |Town code. Please call the interface /Towns|
+|city	           |string	|	            |Country code. 2-digit code.Please call the interface /Countries |
 |state	           |string	|	            |State or region                            |
 |zipcode	       |string	|	            |Postal code                                |
 |countryid	       |string	|	            |Country ID                                 |
@@ -533,7 +567,7 @@ Card Recharge
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y        | Bank CardId                       |
+| cardId    | string  |       Y        |  CardId                       |
 | amount    | string  |       Y        | TopUp Amount                      |
 
 
@@ -573,7 +607,7 @@ card Set Pin
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y        |Bank CardId                        |
+| cardId    | string  |       Y        | CardId                        |
 | signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 
@@ -616,7 +650,7 @@ Card Lock
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y        | Bank CardId                       |
+| cardId    | string  |       Y        |  CardId                       |
 | signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 ```json
@@ -654,7 +688,7 @@ Card Unlock
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y        | Bank CardId                       |
+| cardId    | string  |       Y        |  CardId                       |
 | signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 ```json
@@ -692,7 +726,7 @@ Card Cancellation
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
-| cardId    | string  |       Y         | Must be between 1 and 36 bytes in UTF-8 encoding|
+| cardId    | string  |       Y        | cardId                           |
 
 ```json
 {    
@@ -731,7 +765,7 @@ Card Estimation TopUp Fee
 
 | Parameter | Type    |Required or not  | Description                       |
 | :-------- | :-------|:----------------| :-------------------------------- |
-|  cardId   | string  |       y         |Bank CardId                        |
+|  cardId   | string  |       y         | CardId                        |
 |  amount   | string  |       y         | TopUp Amount	                    |
 
 ```json
@@ -770,7 +804,7 @@ Card Details
 
 | Parameter | Type     |Required or not| Description                       |
 | :-------- | :------- |:--------------| :-------------------------------- |
-| cardId    | string   |       Y       |Bank CardId                        |
+| cardId    | string   |       Y       | CardId                        |
 ``` path parameter
 {
 "cardId":"76ddcaab-55c4-46e0-8d80-e7d097bfc1b3"
@@ -805,7 +839,7 @@ Pin Details
 
 | Parameter | Type     |Required or not |Description                       |
 | :-------- | :------- |:-------------- |:-------------------------------- |
-| cardId    | string   |       Y        |Bank cardId                       |
+| cardId    | string   |       Y        | cardId                       |
 
 ``` path parameter
 {
@@ -840,7 +874,7 @@ Card Balance
 
 | Parameter | Type     |Required or not |Description                       |
 | :-------- | :------- |:-------------- |:-------------------------------- |
-| cardId    | string   |       Y        |Bank CardId                       |
+| cardId    | string   |       Y        | CardId                       |
 
 ``` path parameter
 {
