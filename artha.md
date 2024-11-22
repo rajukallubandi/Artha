@@ -11,7 +11,7 @@
 - [API Reference](#API-Reference)	
     - [Merchant Information](#Merchant-Information)
     - [Programdetails](#Programdetails)	
-	- [KYCRequirements](#KYCRequirements)
+	- [KYC-Requirements](#KYC-Requirements)
     - [ApplyCard](#ApplyCard)
     - [Binding](#Binding)
     - [CardTopUp](#CardTopUp)
@@ -146,6 +146,7 @@ and the merchant must exchange public keys, which will be used for validating re
 |:------------|:--------|:------------|:-----------|
 | code | Integer | Y | response code |
 | message | String | Y | message |
+
 ```json
 {
     "code": 0,
@@ -315,6 +316,7 @@ Programdetails
 
 ## KYC Requirements
 - **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
+
 | Parameter           | Type   | Required or not  | Description                                                |
 |:--------------------|:-------|:---------------- |:-----------------------------------------------------------|
 | PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
