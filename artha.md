@@ -312,6 +312,23 @@ Programdetails
 }
 ```
 
+## KYC Requirements
+- **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
+| Parameter           | Type   | Required or not | Description                                                |
+|:--------------------|:-------|:----------------|:-----------------------------------------------------------|
+| PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
+| Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
+| FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
+| FullName            | Array  | Required         | Contains fields: FirstName, LastName, Gender, DOB.         |
+| Comms               | Array  | Required         | Contains fields: Email, EmailMobileCode, Mobile.           |
+| EmergencyContact    | Array  | Required         | Contains field: EmergencyContactNumber.                    |
+| Address             | Array  | Required         | Contains field: Address.                                   |
+| FullAddress         | Array  | Required         | Contains fields: Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
+| HandedPassport      | Array  | Required         | Contains field: HandHoldIdPhoto.                           |
+| Face                | Array  | Required         | Contains field: Photo.                                     |
+| Sign                | Array  | Required         | Contains field: SignImage.                                 |
+| Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
+
 ## ApplyCard
 
 **HTTP request**
@@ -333,25 +350,7 @@ Apply for a card using the specified program ID.
 | Parameter | Type    |Required or not| Description                       |
 | :-------- | :-------|:--------------| :-------------------------------- |
 | programId | string  |       Y       | must be between 1 and 36 bytes in UTF-8 encoding |
-| kyc       | object  |               |{}                                 |
-
-**KYC Requirements**
-- **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
-| Parameter           | Type   | Required or not | Description                                                |
-|:--------------------|:-------|:----------------|:-----------------------------------------------------------|
-| PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
-| Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
-| FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
-| FullName            | Array  | Required         | Contains fields: FirstName, LastName, Gender, DOB.         |
-| Comms               | Array  | Required         | Contains fields: Email, EmailMobileCode, Mobile.           |
-| EmergencyContact    | Array  | Required         | Contains field: EmergencyContactNumber.                    |
-| Address             | Array  | Required         | Contains field: Address.                                   |
-| FullAddress         | Array  | Required         | Contains fields: Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
-| HandedPassport      | Array  | Required         | Contains field: HandHoldIdPhoto.                           |
-| Face                | Array  | Required         | Contains field: Photo.                                     |
-| Sign                | Array  | Required         | Contains field: SignImage.                                 |
-| Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
-
+| kyc       | object  |               |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                |
 
 
 | Parameter        | Type   |Required or not| Description                          |
@@ -453,24 +452,8 @@ Binding KYC
 | cardNumber    | string   |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
 |envelopeNo     | string   |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
 |handholdidphoto|string    | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
-| kyc       | object       |{}                                                                                           |
+| kyc       | object       |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                                                                         |
 
-**KYC Requirements**
-- **Description:** Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC
-| Parameter           | Type   | Required or not | Description                                                |
-|:--------------------|:-------|:----------------|:-----------------------------------------------------------|
-| PassportOnly        | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc.        |
-| Passport            | Array  | Required         | Contains fields: DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
-| FullNameOnly        | Array  | Required         | Contains fields: FirstName, LastName.                      |
-| FullName            | Array  | Required         | Contains fields: FirstName, LastName, Gender, DOB.         |
-| Comms               | Array  | Required         | Contains fields: Email, EmailMobileCode, Mobile.           |
-| EmergencyContact    | Array  | Required         | Contains field: EmergencyContactNumber.                    |
-| Address             | Array  | Required         | Contains field: Address.                                   |
-| FullAddress         | Array  | Required         | Contains fields: Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
-| HandedPassport      | Array  | Required         | Contains field: HandHoldIdPhoto.                           |
-| Face                | Array  | Required         | Contains field: Photo.                                     |
-| Sign                | Array  | Required         | Contains field: SignImage.                                 |
-| Biomatric           | Array  | Required         | Contains field: Biomatric.                                 |
 
 | Parameter        | Type   |Required or not| Description                               |
 |:-----------------|:------ |:--------------|:----------------------------------------  |
