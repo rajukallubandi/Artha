@@ -74,7 +74,7 @@ Test environment: https://tstapi.artha.work/api/v1
 Test environment: https://tstapi.artha.work/api/v1
 
 
-**CustomerToken:** This token must be included in the request header when accessing the API, using the format **CustomerToken={CustomerToken}**.
+**customerToken:** This token must be included in the request header when accessing the API, using the format **customerToken={customerToken}**.
 
 ## API Specification
 
@@ -92,7 +92,7 @@ To ensure security and verify the sender's identity, all open API requests are a
 |----------------|--------|----------|-------------------------------------------------------------------------------|
 | timestamp      | long   | true     | Unix timestamp (in second)                                                    |
 | nonce          | string | true     | Random 10 characters string                                                   |
-| CustomerToken   | string | true     | Merchant identification, provided by Artha Cards                                  |
+| customerToken   | string | true    | Merchant identification, provided by Artha Cards                                  |
 | signature      | string | true     | Signature of request body + header request                                    |
 
 
@@ -135,7 +135,7 @@ and the merchant must exchange public keys, which will be used for validating re
 |:-----------|:-------|:---------|:-----------|
 | taskId     | String | Y        | taskId |
 | Remarks    | String | Y        | Remarks |
-| Status	 | String | Y        | Whether it was successful. Success: Failed.|
+| Status	 | String | Y        | Whether it was a success or a failed	|
 | opt_code   | String | Y        | It's Kind Of OTP |
 | notifyType | String | Y        | notification type |
 | amount	 | String | Y        | Amount   |
@@ -318,13 +318,13 @@ Programdetails
 |  KYC Requirements    | Required Fields                                                |
 |:---------------------|:-------------------------------------------------------------- |
 | PassportOnly         |  DocType, DocId, Frontdoc, Backdoc.                            |
-| Passport             |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocNeverExpire. |
+| Passport             |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocNeverExpire|
 | FullNameOnly         |  FirstName, LastName.                                           |
 | FullName             |  FirstName, LastName, Gender, DOB.                              |
-| Comms                | Email, MobileCode, Mobile.                                      |
+| Comms                |  Email, MobileCode, Mobile.                                     |
 | EmergencyContact     |  emergencycontact.                                              |
 | Address              |  Address.                                                       |
-| FullAddress          | Address, Town, City, State, ZipCode, CountryId, CountryIsoThree.|
+| FullAddress          |  Address, Town, City, State, ZipCode, CountryId, CountryIsoThree|
 | HandedPassport       |  HandHoldIdPhoto.                                               |
 | Face                 |  Photo.                                                         |
 | Sign                 |  SignImage.                                                     |
@@ -361,17 +361,17 @@ Apply for a card using the specified program ID.
 |       lastname	       |string	  |      N         |Last name of the individual                                     |
 |       gender	           |integer   |      N         |Gender (1: male, 2: female)                                     |
 |       dob	               |string	  |      N         |Birthday (yyyy-MM-dd)                                           |
-|       nationalityid      |string	  |      N         |Nationality ID                                                  |
+|       nationalityid      |string	  |      N         |Nationalityid  Please call the interface /Countries             |
 |       email	           |string	  |      N         |Email                                                           |
 |       mobilecode	       |string	  |      N         |Mobile code (country code)                                      |
 |       mobile	           |string	  |      N         |Mobile number                                                   |
 |       address	           |string	  |      N         |Residential address                                             |
 |       town	           |string	  |      N         |Town code. Please call the interface /Towns                     |
-|       city	           |string	  |      N         |Country code. 2-digit code.Please call the interface /Countries |
+|       city	           |string	  |      N         |           city                                                 |
 |       state	           |string	  |      N         |State or region                                                 |
 |       zipcode	           |string	  |      N         |Postal code                                                     |
-|       countryid	       |string	  |      N         |Country ID                                                      |
-|       countryisothree    |string	  |      N         |ISO 3166-1 alpha-3 country code                                 |
+|       countryid	       |string	  |      N         |Country Id  Please call the interface /Countries                |
+|       countryisothree    |string	  |      N         |countryisothree  Please call the interface /Countries           |
 |       emergencycontact   |string    |      N         |Emergency contact number                                        |
 |       doctype	           |integer   |      N         |Document type (0 for unspecified)                               |
 |       docid	           |string	  |      N         |Document ID                                                     |
@@ -462,8 +462,8 @@ Binding KYC
 | :------------------------|:-------- |:---------------|:--------------------------------------------------------------|
 | taskId                   | string   |       Y        | must be between 1 and 36 bytes in UTF-8 encoding              |
 | cardNumber               | string   |       Y        |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
-|envelopeNo                | string   |       N        |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
-|handholdidphoto           |string    |       Y        | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
+|envelopeNo                | string   |       N        |Check if the EnvelopeNoRequired field is required in the program interface.|
+|handholdidphoto           |string    |       Y        | Photo of holding passport and bank card  Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
 | kyc                      | object   |                |If the Kycrequirements are null, then KYC information is not needed. However, if the Kycrequirements have a value and kycRequiredWhileApplyCard is false, the KYC information must be provided. In this case, ensure that the required fields are passed based on the program's KYC requirements. Otherwise, KYC information is not required.                                |
 
 **kyc**
@@ -473,17 +473,17 @@ Binding KYC
 |       lastname	       |string	  |      N         |Last name of the individual                                     |
 |       gender	           |integer   |      N         |Gender (1: male, 2: female)                                     |
 |       dob	               |string	  |      N         |Birthday (yyyy-MM-dd)                                           |
-|       nationalityid      |string	  |      N         |Nationality ID                                                  |
+|       nationalityid      |string	  |      N         |Nationalityid  Please call the interface /Countries             |
 |       email	           |string	  |      N         |Email                                                           |
 |       mobilecode	       |string	  |      N         |Mobile code (country code)                                      |
 |       mobile	           |string	  |      N         |Mobile number                                                   |
 |       address	           |string	  |      N         |Residential address                                             |
-|       town	           |string	  |      N         |Town code. Please call the interface /Towns                     |
-|       city	           |string	  |      N         |Country code. 2-digit code.Please call the interface /Countries |
+|       town	           |string	  |      N         |Town Id  Please call the interface /Towns                       |
+|       city	           |string	  |      N         |City                                                            |
 |       state	           |string	  |      N         |State or region                                                 |
 |       zipcode	           |string	  |      N         |Postal code                                                     |
-|       countryid	       |string	  |      N         |Country ID                                                      |
-|       countryisothree    |string	  |      N         |ISO 3166-1 alpha-3 country code                                 |
+|       countryid	       |string	  |      N         |Country Id  Please call the interface /Countries                |
+|       countryisothree    |string	  |      N         |countryisothree  Please call the interface /Countries           |
 |       emergencycontact   |string    |      N         |Emergency contact number                                        |
 |       doctype	           |integer   |      N         |Document type (0 for unspecified)                               |
 |       docid	           |string	  |      N         |Document ID                                                     |
@@ -665,7 +665,7 @@ card Set Pin
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
 | cardId    | string  |       Y        | CardId                        |
-| signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
+| signimage | string  |       N        | User signature photo It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 
 ```json
@@ -714,7 +714,7 @@ Card Lock
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
 | cardId    | string  |       Y        |  CardId                       |
-| signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
+| signimage | string  |       N        | User signature photo It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 ```json
 {    
@@ -758,7 +758,7 @@ Card Unlock
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:-------------- | :-------------------------------- |
 | cardId    | string  |       Y        |  CardId                       |
-| signimage | string  |       N        | User signature photo (URL format). It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
+| signimage | string  |       N        | User signature photo It cannot be larger than 2M and supports the formats .png, .jpeg, and .jpg. It is only required when the card type represented by the bank card is needPhotoForOperateCard=true. See the parameter needPhotoForOperateCard in the interface /MerchantInformation/Merchant.|
 
 ```json
 {    
@@ -938,11 +938,11 @@ Card Balance
 
 | Parameter               | Type     |Description                                    |
 | :-----------------------| :------- |:----------------------------------------------|
-|     available_balance   | string   |         available_balance                     |
-|     cardcurrency       | string   |         card_currency                          |
-|     cardnumber         | string   |         card_number                            |
-|     cardtype           | string   |         card_type                              |
-|     currentbalance     | string   |         current_balance                        |
+|     availablebalance   | string    |         availablebalance                     |
+|     cardcurrency        | string   |         cardcurrency                         |
+|     cardnumber          | string   |         cardnumber                           |
+|     cardtype            | string   |         cardtype                             |
+|     currentbalance      | string   |         currentbalance                       |
 
 ```json 
 {  
@@ -1013,55 +1013,42 @@ Please set the callback notification address in the merchant basic information i
 
 ## Callback notification type
 
-| notifyType | business | meaning |
-|:------------|:------|:------|
-| 1 | Global Express | Payment success, payment failure, refund notification |
-| 2 | Global Express | Order adjustment notification |
-| 3 | Bank card | Callback notification after user registration review is completed |
-| 4 | Bank card | Card recharge result callback notification |
-| 5 | Bank card | Card activation result callback notification |
-| 6 | Bank card | Card freeze, thaw processing status callback notification |
-| 7 | Bank card | 3DS verification |
+| notifyType  | business       | meaning |
+|:------------|:---------------|:------  |
+| 1           | Global Express | Payment success, payment failure, refund notification |
+| 2           | Bank card      | Card recharge result callback notification |
+| 3           | Bank card      | Card activation result callback notification |
+| 4           | Bank card      | Card freeze, thaw processing status callback notification |
+| 5           | Bank card      | 3DS verification |
+| 6           | Bank card      | Bank Card Consumption Statement |
 
 ## Global Express Remittance Payment result callback notification
 This notification notifyType = 1
 
 **Callback parameters:**
 
-| Parameter | Type | Must be transmitted | Meaning |
-|:------|:------|:------|:------|
-| orderNo | Long | Y | PayoCard order number |
-| status | String | Y | Order status. B3: Successful payment; B4: Failed payment; B6: Refund; |
-| paymentCurrency | String | Y | Payment currency |
-| paymentAmount | BigDecimal | Y | Payment amount |
-| paymentFee | BigDecimal | Y | Payment fee |
-| receivedAccountNum | String | Y | Receiving account number |
-| receivedAccountName | String | Y | Receiving account name |
-| receivedCurrency | String | Y | Receiving currency |
-| receivedAmount | BigDecimal | N | Receiving amount. Return when status = B3, B4, B6 |
-| resultMsg | String | N | message |
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |                                                                                                                                                     
+| amount         | Decimal    |        amount             |
+| CreationTime   | String     |        CreationTime       |
 
 **Callback example:**
 
 ```JSON
 {
-    "data":{
-        "orderNo": 12343434232324,
-        "status": "B3",
-        "paymentCurrency": "EUR",
-        "paymentAmount": 10,
-        "payAccountNum": "1234",
-        "paymentFee": 1.5,
-        "receivedAccountNum": "es324353535",
-        "receivedAccountName": "tom z",
-        "receivedCurrency": "SGD",
-        "receivedAmount": 30.5,
-        "resultMsg": "success"
-    },
-    "requestId": "PYC20240325164529237",
-    "merchantId": "88888888",
-    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
-    "notifyType": 1
+   
+        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
+        "NotifyType": "refund",
+        "Status": "success",
+        "Remarks":Error Message ,
+        "amount": "100",
+        "CreationTime": "2011-W01-2T00:05:23.283"
 }
 ```
 
@@ -1086,40 +1073,28 @@ This notification notifyType = 2
 
 **Callback parameters:**
 
-| Parameter | Type | Required or not | Meaning |
-|:------|:------|:------|:------|
-| orderNo | Long | Y | PayouCard order number |
-| status | String | Y | Order status. B11: Transfer order_pending submission; B13: Transfer order_approved; B15: Transfer order_rejected |
-| transferOrderInfo | List | N | Transfer order information. See dictionary_biz.pdf (2.2. Transfer order info type) |
-| transferOrderFile | List | N | Transfer order file. See dictionary_biz.pdf (2.3. Transfer order file type) |
-| transferOrderDesc | String | N | Transfer order information |
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |                                                                                                                                                     
+| amount         | Decimal    |        amount             |
+| CreationTime   | String     |        CreationTime       |
 
 **Callback example:**
 
-```json
+```JSON
 {
-  "data":
-  {
-    "orderNo": 12343434232324,
-    "status": "B11",
-    "transferOrderInfo":
-    [
-      "1",
-      "3",
-      "5"
-    ],
-    "transferOrderFile":
-    [
-      "21",
-      "23",
-      "24"
-    ],
-    "transferOrderDesc": ""
-  },
-  "requestId": "PYC20240325164529237",
-  "merchantId": "88888888",
-  "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
-  "notifyType": 2
+   
+        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
+        "NotifyType": "Recharge",
+        "Status": "success",
+        "Remarks":Error Message ,
+        "amount": "100",
+        "CreationTime": "2011-W01-2T00:05:23.283"
 }
 ```
 **Response parameters:**
@@ -1141,26 +1116,23 @@ This notification notifyType = 3
 
 **Callback parameters:**
 
-| Parameter | Type | Required or not | Meaning |
-|:------|:------|:------|:------|
-| uniqueId | String | Y | Unique ID of partner user |
-| cardTypeId | Integer | Y | Card type |
-| status | Integer | Y | Status |
-| statusDesc | String | Y | Status description |
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |
 
 **Callback example:**
-```json
+```JSON
 {
-    "data":{
-        "uniqueId": "T6789O067890",
-        "cardTypeId": 1,
-        "status": 1,
-        "statusDesc":"success"
-    },
-    "requestId": "PYC20240325164529237",
-    "merchantId": "88888888",
-    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
-    "notifyType": 3
+   
+        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
+        "NotifyType": "createcard",
+        "Status": "success",
+        "Remarks":Error Message 
 }
 ```
 
@@ -1179,28 +1151,30 @@ This notification notifyType = 3
 }
 ```
 ## Bank card activation result callback notification
-This notification notifyType = 5
+This notification notifyType = 4
 
 **Callback parameters:**
 
-| Parameter | Type | Is it required | Meaning |
-|:------|:------|:------|:------|
-| cardNo | String | Y | Card number |
-| status | Integer | Y | Status. 5: Activation successful; 12: Activation review failed |
-| msg | String | N | Error message |
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |                                                                                                                                                     
+| amount         | Decimal    |        amount             |
+| CreationTime   | String     |        CreationTime       |
 
 **Callback example:**
 ```JSON
 {
-    "data":{
-        "cardNo": "12456782323",
-        "status": 5,
-        "msg": null
-    },
-    "requestId": "PYC20240325164529237",
-    "merchantId": "88888888",
-    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
-    "notifyType": 5
+        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
+        "NotifyType": "freeze",
+        "Status": "success",
+        "Remarks":Error Message ,
+        "amount": "100",
+        "CreationTime": "2011-W01-2T00:05:23.283"
 }
 ```
 
@@ -1219,31 +1193,31 @@ This notification notifyType = 5
 }
 ```
 ## Bank card freeze thaw processing status callback notification
-This notification notifyType = 6
+This notification notifyType = 5
 
 **Callback parameters:**
 
-| Parameter | Type | Is it required | Meaning |
-|:------|:------|:-----|:------|
-| uniqueId | String | Y | Unique ID of the partner user |
-| cardNo | String | Y | Card number |
-| status | Integer | Y | Status. 1: Success; 2: Failure |
-| requestType | Integer | Y | Type. 1: Freeze; 2: Unfreeze |
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |                                                                                                                                                     
+| amount         | Decimal    |        amount             |
+| CreationTime   | String     |        CreationTime       |
 
 **Callback example:**
 
-```json
+```JSON
 {
-    "data":{
-        "uniqueId": 502323,
-        "cardNo": "12456782323",
-        "status": 1,
-        "requestType": 1
-    },
-    "requestId": "PYC20240325164529237",
-    "merchantId": "88888888",
-    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
-    "notifyType": 5
+        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
+        "NotifyType": "OPT_CODE",
+        "Status": "success",
+        "Remarks":Error Message ,
+        "amount": "100",
+        "CreationTime": "2011-W01-2T00:05:23.283"
 }
 ```
 
@@ -1262,33 +1236,31 @@ This notification notifyType = 6
 }
 ```
 ## Bank card 3DS verification
-This notification notifyType = 7
+This notification notifyType = 6
 
 **Callback parameters:**
 
-| Parameter | Type | Must be passed | Meaning |
-|:------|:------|:------|:------|
-| cardNo | String | Y | Card number |
-| otp | String | Y | Verification code |
-| merchantName | String | Y | Merchant name |
-| transactionAmount | String | Y | Transaction amount |
-| transactionCurrency | String | Y | Transaction currency |
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |                                                                                                                                                     
+| amount         | Decimal    |        amount             |
+| CreationTime   | String     |        CreationTime       |
 
 **Callback example:**
 
-```json
+```JSON
 {
-    "data":{
-        "cardNo": "4611990424818446",
-        "otp": "890789",
-        "merchantName": "test",
-        "transactionAmount": "100",
-        "transactionCurrency": "EUR"
-    },
-    "requestId": "PYC20240325164529237",
-    "merchantId": "88888888",
-    "signature": "2sadfj23sanfinasdfnawesamdfasdfasdfwasfasdfa",
-    "notifyType": 5
+        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
+        "NotifyType": "Consume",
+        "Status": "success",
+        "Remarks":Error Message ,
+        "amount": "100",
+        "CreationTime": "2011-W01-2T00:05:23.283"
 }
 ```
 
