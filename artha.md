@@ -680,13 +680,13 @@ card Set Pin
 
 | Parameter | Type    | Description           |
 | :-------- | :-------|:----------------------| 
-| taskId    | string  | taskId                |
+| cardid    | string  | cardid                |
 | status    | string  | status(Success,Failed)|
 | remarks   | string  | Status description    |
 
 ```json
 {  
-  "taskId": "0871d828-a18e-4841-8ace-b5bf264f8c51",
+  "cardid": "0871d828-a18e-4841-8ace-b5bf264f8c51",
   "status": "Success",
   "remarks": "CardSetPin SuccesFully!"
 }
@@ -726,13 +726,13 @@ Card Lock
 
 | Parameter | Type    | Description           |
 | :-------- | :-------|:----------------------| 
-| taskId    | string  | taskId                |
+| cardid    | string  | cardid                |
 | status    | string  | status(Success,Failed)|
 | remarks   | string  | Status description    |
 
 ```json
 {  
- "taskId": "c9f691d9-178f-4f11-9040-9a81a513525a",
+ "cardid": "c9f691d9-178f-4f11-9040-9a81a513525a",
  "status": "Success",
  "remarks": "CardInProgress"
 }
@@ -770,13 +770,13 @@ Card Unlock
 
 | Parameter | Type    | Description           |
 | :-------- | :-------|:----------------------| 
-| taskId    | string  | taskId                |
+| cardid    | string  | cardid                |
 | status    | string  | status(Success,Failed)|
 | remarks   | string  | Status description    |
 
 ```json
 {  
- "taskId": "b3190d60-a06f-47ee-b9a9-bc63246b912d",
+ "cardid": "b3190d60-a06f-47ee-b9a9-bc63246b912d",
  "status": "Success",
  "remarks": "CardInProgress"
 }
@@ -813,13 +813,13 @@ Card Cancellation
 
 | Parameter | Type    | Description           |
 | :-------- | :-------|:----------------------| 
-| taskId    | string  | taskId                |
+| cardid    | string  | cardid                |
 | status    | string  | status(Success,Failed)|
 | remarks   | string  | Status description    |
 
 ```json
 {  
- "taskId": "9404f5bc-b767-48c3-8651-befe0b2c3a3f",
+ "cardid": "9404f5bc-b767-48c3-8651-befe0b2c3a3f",
  "status": "Success",
  "remarks": "CardInProgress"
 }
