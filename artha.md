@@ -14,12 +14,12 @@
 	- [KYC-Requirements](#KYC-Requirements)
     - [ApplyCard](#ApplyCard)
     - [Binding](#Binding)
+	 - [EstimateCardTopUpFee](#EstimateCardTopUpFee)
     - [CardTopUp](#CardTopUp)
     - [CardSetPin](#CardSetPin)
     - [CardFreeze](#CardFreeze)
     - [CardUnFreeze](#CardUnFreeze)
     - [CancelCard](#CancelCard)
-    - [EstimateCardTopUpFee](#EstimateCardTopUpFee)
     - [CardDetails](#CardDetails)
     - [PinDetails](#PinDetails)
     - [CardBalance](#CardBalance)
@@ -172,67 +172,59 @@ Merchant
 
 **Response Example**
 
-```json
-{  
- "name": "Jhon",
- "email":"Jhon@gmail.com",
-  "mobile":"9398909890",
-  "balances":
-  {
-  "currency":"USD",
-    "currencyCode":"USD",
-    "network":"TRC-20",
-    "amount":"100"
-  },
-  "Programs":
-  {
-  "programId": "550e8400-e29b-41d4-a716-446655440000",
-  "bin": 123456,
-  "name": "Premium Card",
-  "currency": "USD",
-  "type": "Debit",
-  "consumptionMethod": "Online",
-  "isoCountryName": "United States",
-  "cardFee": 15.99,
-  "cardOpeningFee": 5.00,
-  "firstRechargeAmount": 50.00,
-  "cancellationFeeMin": 5.00,
-  "cancellationFeeMax": 25.00,
-  "freightFee": 2.50,
-  "rechargeFeeMin": 1.00,
-  "rechargeFeeMax": 10.00,
-  "transactionFee": 0.50,
-  "atmWithdrawalFee": 2.00,
-  "maintenanceFee": 1.50,
-  "atmBalanceInquiryFee": 0.50,
-  "monthlyRechargeLimit": 1000.00,
-  "dailyRechargeLimit": 300.00,
-  "singleRechargeLimit": 200.00,
-  "perPaymentLimit": 150.00,
-  "atmDailyWithdrawalLimit": 500.00,
-  "spendingLimit": 1000.00,
-  "reviewTime": "2024-10-10T12:00:00Z",
-  "cardState": "Active",
-  "note": "First card issuance",
-  "remarks": "For premium users only",
-  "supportedOperationTypes": "Purchase, Transfer",
-  "cardImage": "https://example.com/images/card.png",
-  "supportedPlatforms": "iOS, Android, Web",
-  "topUpTokens": [
-    {
-      "token": "USDT",
-      "network": "TRC-20",
-      "address": "000xxx"
-    }
-  ],
-  "kycRequiredWhileApplyCard": true,
-  "kycRequirements": "string",
-  "kycType": "string",
-  "needPhotoForActiveCard": true,
-  "needPhotoForOperateCard": true
-}
- }
- ```
+
+ | Parameter                     | Type         | Description                                |                  
+ | :---------------------------- | :----------- |:------------------------------------------ | 
+ |name                           |              |                                            |                                   
+ |email                          |              |                                            |                                   
+ |mobile                         |              |                                            |                                  
+ |balances                       | object       |  Data object for this respond              |                                   
+ |     currency                  |              |                                            |                                   
+ |     currencyCod               |              |                                            |                                  
+ |     network                   |              |                                            |                                   
+ |     amount                    |              |                                            |                                   
+ |Programs                       |  object      |    Data object for this respond            |                                   
+ |        programId              |              |                                            |
+ |        bin                    |              |                                            |                                   
+ |        name                   |              |                                            |                                   
+ |        currency               |              |                                            |                                   
+ |        type                   |              |                                            |                                   
+ |        consumptionMethod      |              |                                            |                                   
+ |        isoCountryName         |              |                                            |                                   
+ |        cardFee                |              |                                            |                                   
+ |        cardOpeningFee         |              |                                            |                                   
+ |        firstRechargeAmount    |              |                                            |                                   
+ |        cancellationFeeMin     |              |                                            |                                   
+ |        cancellationFeeMax     |              |                                            |                                   
+ |        freightFee             |              |                                            |                                   
+ |        rechargeFeeMin         |              |                                            |                                   
+ |        rechargeFeeMax         |              |                                            |                                   
+ |        transactionFee         |              |                                            |                                   
+ |        atmWithdrawalFee       |              |                                            |                                   
+ |        maintenanceFee         |              |                                            |                                   
+ |        atmBalanceInquiryFee   |              |                                            |                                   
+ |        monthlyRechargeLimit   |              |                                            |                                   
+ |        dailyRechargeLimit     |              |                                            |                                   
+ |        singleRechargeLimit    |              |                                            |                                   
+ |        perPaymentLimit        |              |                                            |                                   
+ |        atmDailyWithdrawalLimit|              |                                            |                                   
+ |        spendingLimit          |              |                                            |                                   
+ |        reviewTime             |              |                                            |                                   
+ |        cardState              |              |                                            |                                   
+ |        note                   |              |                                            |                                   
+ |        remarks                |              |                                            |                                   
+ |        supportedOperationTypes|              |                                            |                                   
+ |        cardImage              |              |                                            |                                   
+ |        supportedPlatforms     |              |                                            |                                   
+ |topUpTokens                    | array        |   Data object for this respond             |                                   
+ |        token                  |              |                                            |                                   
+ |        network                |              |                                            |                                   
+ |        address                |              |                                            |                                   
+ |kycRequiredWhileApplyCard      |              |is true, the KYC information must be provided. Otherwise, it is not required.                                           |                                   
+ |kycRequirements                |              |"kycRequiredWhileApplyCard" is true, ensure that the required fields are passed based on the program's Kycrequirements.                                           |                                   
+ |kycType                        |              |                                            |                                   
+ |needPhotoForActiveCard         |              |                                            |                                   
+ |needPhotoForOperateCard        |              |                                            |                                   
  
  # Programdetails
  
@@ -254,7 +246,7 @@ Programdetails
 
 | Parameter | Type    |Required or not | Description                       |
 | :-------- | :-------|:---------------| :-------------------------------- |
-| programid | string  |        Y        |Must be between 1 and 36 bytes in UTF-8 encoding|
+| programid | string  |        Y       |programid                          |
 
 ```path parameter
 {    
@@ -264,73 +256,69 @@ Programdetails
 
 
 **Response Example**
-```JSON
-{
-  "programId": "550e8400-e29b-41d4-a716-446655440000",
-  "bin": 123456,
-  "name": "Premium Card",
-  "currency": "USD",
-  "type": "Debit",
-  "consumptionMethod": "Online",
-  "isoCountryName": "United States",
-  "cardFee": 15.99,
-  "cardOpeningFee": 5.00,
-  "firstRechargeAmount": 50.00,
-  "cancellationFeeMin": 5.00,
-  "cancellationFeeMax": 25.00,
-  "freightFee": 2.50,
-  "rechargeFeeMin": 1.00,
-  "rechargeFeeMax": 10.00,
-  "transactionFee": 0.50,
-  "atmWithdrawalFee": 2.00,
-  "maintenanceFee": 1.50,
-  "atmBalanceInquiryFee": 0.50,
-  "monthlyRechargeLimit": 1000.00,
-  "dailyRechargeLimit": 300.00,
-  "singleRechargeLimit": 200.00,
-  "perPaymentLimit": 150.00,
-  "atmDailyWithdrawalLimit": 500.00,
-  "spendingLimit": 1000.00,
-  "reviewTime": "2024-10-10T12:00:00Z",
-  "cardState": "Active",
-  "note": "First card issuance",
-  "remarks": "For premium users only",
-  "isKycRequired": "Yes",
-  "supportedOperationTypes": "Purchase, Transfer",
-  "cardImage": "https://example.com/images/card.png",
-  "supportedPlatforms": "iOS, Android, Web",
-  "topUpTokens": [
-    {
-      "token": "USDT",
-      "network": "TRC-20",
-      "address": "000xxx"
-    }
-  ],
-  "kycRequiredWhileApplyCard": true,
-  "kycRequirements": "string",
-  "kycType": "string",
-  "needPhotoForActiveCard": true,
-  "needPhotoForOperateCard": true
-}
-```
+
+ | Parameter                     | Type         | Description                                |                  
+ | :---------------------------- | :----------- |:------------------------------------------ | 
+ |        programId              |              |                                            |
+ |        bin                    |              |                                            |                                   
+ |        name                   |              |                                            |                                   
+ |        currency               |              |                                            |                                   
+ |        type                   |              |                                            |                                   
+ |        consumptionMethod      |              |                                            |                                   
+ |        isoCountryName         |              |                                            |                                   
+ |        cardFee                |              |                                            |                                   
+ |        cardOpeningFee         |              |                                            |                                   
+ |        firstRechargeAmount    |              |                                            |                                   
+ |        cancellationFeeMin     |              |                                            |                                   
+ |        cancellationFeeMax     |              |                                            |                                   
+ |        freightFee             |              |                                            |                                   
+ |        rechargeFeeMin         |              |                                            |                                   
+ |        rechargeFeeMax         |              |                                            |                                   
+ |        transactionFee         |              |                                            |                                   
+ |        atmWithdrawalFee       |              |                                            |                                   
+ |        maintenanceFee         |              |                                            |                                   
+ |        atmBalanceInquiryFee   |              |                                            |                                   
+ |        monthlyRechargeLimit   |              |                                            |                                   
+ |        dailyRechargeLimit     |              |                                            |                                   
+ |        singleRechargeLimit    |              |                                            |                                   
+ |        perPaymentLimit        |              |                                            |                                   
+ |        atmDailyWithdrawalLimit|              |                                            |                                   
+ |        spendingLimit          |              |                                            |                                   
+ |        reviewTime             |              |                                            |                                   
+ |        cardState              |              |                                            |                                   
+ |        note                   |              |                                            |                                   
+ |        remarks                |              |                                            |                                   
+ |        supportedOperationTypes|              |                                            |                                   
+ |        cardImage              |              |                                            |                                   
+ |        supportedPlatforms     |              |                                            |                                   
+ |topUpTokens                    | array        |   Data object for this respond             |                                   
+ |        token                  |              |                                            |                                   
+ |        network                |              |                                            |                                   
+ |        address                |              |                                            |                                   
+ |kycRequiredWhileApplyCard      |              |is true, the KYC information must be provided. Otherwise, it is not required.                                           |                                   
+ |kycRequirements                |              |"kycRequiredWhileApplyCard" is true, ensure that the required fields are passed based on the program's Kycrequirements.                                           |                                   
+ |kycType                        |              |                                            |                                   
+ |needPhotoForActiveCard         |              |                                            |                                   
+ |needPhotoForOperateCard        |              |                                            |   
+ 
 
 ## KYC Requirements
-- **Description:** Based on the program's KYC requirements , please check the KYC requirements and send the relevant type of response for KYC
+- **Description:** Based on the program's KYC requirements, ensure that the required fields in the KYC section are provided while applying for a card or binding a card
 
-|  KYC Requirements   |Required or not  | Description                                                |
-|:--------------------|:----------------|:-----------------------------------------------------------|
-| PassportOnly        |  Required       |  DocType, DocId, Frontdoc, Backdoc.                        |
-| Passport            |  Required       |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
-| FullNameOnly        |  Required       |  FirstName, LastName.                                      |
-| FullName            |  Required       |  FirstName, LastName, Gender, DOB.                         |
-| Comms               |  Required       | Email, EmailMobileCode, Mobile.                            |
-| EmergencyContact    |  Required       |  EmergencyContactNumber.                                   |
-| Address             |  Required       |  Address.                                                  |
-| FullAddress         |  Required       | Address, Town, City, State, ZipCode, CountryId, CountryIsoThree. |
-| HandedPassport      |  Required       |  HandHoldIdPhoto.                                          |
-| Face                |  Required       |  Photo.                                                    |
-| Sign                |  Required       |  SignImage.                                                |
-| Biomatric           |  Required       |  Biomatric.                                                |
+|  KYC Requirements    | Required Fields                                                |
+|:---------------------|:-------------------------------------------------------------- |
+| PassportOnly         |  DocType, DocId, Frontdoc, Backdoc.                            |
+| Passport             |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
+| FullNameOnly         |  FirstName, LastName.                                           |
+| FullName             |  FirstName, LastName, Gender, DOB.                              |
+| Comms                | Email, EmailMobileCode, Mobile.                                 |
+| EmergencyContact     |  EmergencyContactNumber.                                        |
+| Address              |  Address.                                                       |
+| FullAddress          | Address, Town, City, State, ZipCode, CountryId, CountryIsoThree.|
+| HandedPassport       |  HandHoldIdPhoto.                                               |
+| Face                 |  Photo.                                                         |
+| Sign                 |  SignImage.                                                     |
+| Biomatric            |  Biomatric.                                                     |
 
 
 ## ApplyCard
@@ -389,7 +377,7 @@ Apply for a card using the specified program ID.
 
 ```json
 {
-  "programId": "string",
+  "programId": "667c63ed-9187-4b1a-be64-8190c8d7ab2b",
   "kyc":  {
     "firstname": "cameron",
     "lastname": "green",
@@ -424,13 +412,12 @@ Apply for a card using the specified program ID.
 
 **Response Example**
 
-```json
-{  
-  "taskId": "2qw234e",
-  "status": "Submit",
-  "remarks": "CardInProgress"
-}
-```
+| Parameter | Type    | Description   |
+| :-------- | :-------|:--------------| 
+| taskId    | string  |               |
+| status    | string  |               |
+| remarks   | string  |               |
+
 
 ## Binding
 
@@ -490,9 +477,9 @@ Binding KYC
 
 ```json
 {
-  "taskId": "string",
-  "cardNumber": "string",
-  "envelopeNo": "string",
+  "taskId": "5eacfc9c-3c51-4e6c-b286-b4c632e44770",
+  "cardNumber": "3566002020360505",
+  "envelopeNo": "264",
    "kyc":  {
     "firstname": "cameron",
     "lastname": "green",
@@ -529,13 +516,54 @@ Binding KYC
 
 ```json
 {    
-  "taskId": "2qw234e",
-  "cardno": "2345678",
-  "status": "Submit",
+  "taskId": "c1b4d39b-7a60-48b7-9bf2-d3fe20d3fdef",
+  "cardno": "6200000000000005",
+  "status": "Success",
   "remarks": "CardInProgress"
 }
 
 ```
+## EstimateCardTopUpFee
+
+**HTTP request**
+
+**POST /EstimateCardTopUpFee**
+
+**Summary**
+
+Card Estimation TopUp Fee
+
+**Request**
+
+**Headers**
+
+- **Content-Type:** application/json
+
+**RequestBody**
+
+| Parameter | Type    |Required or not  | Description                       |
+| :-------- | :-------|:----------------| :-------------------------------- |
+|  cardId   | string  |       y         | CardId                        |
+|  amount   | string  |       y         | TopUp Amount	                    |
+
+```json
+{    
+  "cardId": "19d1f3e2-2ecf-45d3-a796-4f5a2d557f5d",
+  "amount": "100"
+}
+```
+
+**Response Example**
+
+```json
+{  
+ "cardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
+  "amount": "100",
+  "fee": "10",
+  "receiveAmount": "30"
+}
+```
+
 ## CardTopUp
 **HTTP request**
 
@@ -561,7 +589,7 @@ Card Recharge
 
 ```json
 {    
-  "cardId": "2345678",
+  "cardId": "c4bf67ad-c353-45ce-9314-19922fdf0c55",
   "amount": "100"
 }
 
@@ -571,8 +599,8 @@ Card Recharge
 
 ```json
 {  
-  "taskId": "2qw234e",
-  "status": "Submit",
+  "taskId": "bb75ad44-ebee-42c5-8550-204901404e93",
+  "status": "Success",
   "remarks": "CardInProgress"
 }
 ```
@@ -601,7 +629,7 @@ card Set Pin
 
 ```json
 {    
-  "cardId": "2345678",
+  "cardId": "37e85fe5-8834-4b7c-9797-dd307e9418ef",
   "signimage": "signimage"
 }
 
@@ -611,8 +639,8 @@ card Set Pin
 
 ```json
 {  
-  "taskId": "2qw234e",
-  "status": "Submit",
+  "taskId": "0871d828-a18e-4841-8ace-b5bf264f8c51",
+  "status": "Success",
   "remarks": "CardSetPin SuccesFully!"
 }
 ```
@@ -643,7 +671,7 @@ Card Lock
 
 ```json
 {    
-  "cardId": "2qw234e"
+  "cardId": "81e38cea-9ea7-4f84-819f-16a40ba1f466"
 }
 
 ```
@@ -651,8 +679,8 @@ Card Lock
 
 ```json
 {  
- "taskId": "2qw234e",
-  "status": "Submit",
+ "taskId": "c9f691d9-178f-4f11-9040-9a81a513525a",
+  "status": "Success",
   "remarks": "CardInProgress"
 }
 ```
@@ -681,7 +709,7 @@ Card Unlock
 
 ```json
 {    
-  "cardId": "2qw234e"
+  "cardId": "74099243-5467-4e29-9f7f-6984f1db9e01"
 }
 
 ```
@@ -689,8 +717,8 @@ Card Unlock
 
 ```json
 {  
- "taskId": "2qw234e",
-  "status": "Submit",
+ "taskId": "b3190d60-a06f-47ee-b9a9-bc63246b912d",
+  "status": "Success",
   "remarks": "CardInProgress"
 }
 ```
@@ -718,7 +746,7 @@ Card Cancellation
 
 ```json
 {    
-  "cardId": "2qw234e"
+  "cardId": "d55709b7-a56f-4bcc-b08a-00131bfc8bf1"
 }
 ```
 
@@ -726,53 +754,13 @@ Card Cancellation
 
 ```json
 {  
- "taskId": "2qw234e",
-  "referenceId": "23456",
-  "status": "Submit",
+ "taskId": "9404f5bc-b767-48c3-8651-befe0b2c3a3f",
+  "status": "Success",
   "remarks": "CardInProgress"
 }
 ```
 
-## EstimateCardTopUpFee
 
-**HTTP request**
-
-**POST /EstimateCardTopUpFee**
-
-**Summary**
-
-Card Estimation TopUp Fee
-
-**Request**
-
-**Headers**
-
-- **Content-Type:** application/json
-
-**RequestBody**
-
-| Parameter | Type    |Required or not  | Description                       |
-| :-------- | :-------|:----------------| :-------------------------------- |
-|  cardId   | string  |       y         | CardId                        |
-|  amount   | string  |       y         | TopUp Amount	                    |
-
-```json
-{    
-  "cardId": "2qw234e",
-  "amount": "100"
-}
-```
-
-**Response Example**
-
-```json
-{  
- "cardId": "2qw234e",
-  "amount": "100",
-  "fee": "10",
-  "receiveAmount": "30"
-}
-```
 
 ## CardDetails
 
@@ -803,7 +791,7 @@ Card Details
 
 ```json
 {  
- "cardNumber": "12134523",
+ "cardNumber": "6200000000000047",
   "cvv": "234",
   "expirationDate": "2025-10-01"
 }
@@ -839,7 +827,7 @@ Pin Details
 
 ```json
 {  
- "cardNumber": "12134523",
+ "cardNumber": "2222 4000 1000 0008",
   "pin": "234"
 }
 ```
