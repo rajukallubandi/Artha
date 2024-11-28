@@ -930,27 +930,19 @@ Card Balance
 
 | Parameter               | Type     |Description                                    |
 | :-----------------------| :------- |:----------------------------------------------|
-| code                    | -        | 200                                           |
-| data                    | object   | Data object for this respond                  |
 |     available_balance   | string   |         available_balance                     |
-|     cardcurrency       | string   |         card_currency                         |
-|     cardnumber         | string   |         card_number                           |
-|     cardtype           | string   |         card_type                             |
-|     currentbalance     | string   |         current_balance                       |
-|   msg                   | string   |         ok                                    |
+|     cardcurrency       | string   |         card_currency                          |
+|     cardnumber         | string   |         card_number                            |
+|     cardtype           | string   |         card_type                              |
+|     currentbalance     | string   |         current_balance                        |
+
 ```json 
 {  
- "code": "200",
- "data":
- {
    "availablebalance": "100",
     "cardcurrency": "USD",
     "cardnumber": "12134523",
     "cardtype": "OT",
     "currentbalance": "50"
- },
-
-  "msg": "ok"
 }
 ```
 
@@ -974,10 +966,10 @@ Countries
 {  
  "id": "8ee37608-a700-434b-be5d-ba01fd74182c",
  "name":"India",
-  "nationality":"India",
-   "isoTwo":"Y",
-   "isoThree":"Y",
-   "isoNumber":"Y"
+ "nationality":"India",
+ "isoTwo":"Y",
+ "isoThree":"Y",
+ "isoNumber":"Y"
  }
  ```
 
@@ -1001,8 +993,8 @@ Towns
 {  
  "id": "8ee37608-a700-434b-be5d-ba01fd74182c",
  "name":"India",
-  "code":"In",
-   "countryOrRegion":"Y"
+ "code":"In",
+ "countryOrRegion":"Y"
  }
  ```
 # Callback notification
