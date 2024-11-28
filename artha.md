@@ -318,7 +318,7 @@ Programdetails
 |  KYC Requirements    | Required Fields                                                |
 |:---------------------|:-------------------------------------------------------------- |
 | PassportOnly         |  DocType, DocId, Frontdoc, Backdoc.                            |
-| Passport             |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocnEveeExpire. |
+| Passport             |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocNeverExpire. |
 | FullNameOnly         |  FirstName, LastName.                                           |
 | FullName             |  FirstName, LastName, Gender, DOB.                              |
 | Comms                | Email, EmailMobileCode, Mobile.                                 |
@@ -352,33 +352,33 @@ Apply for a card using the specified program ID.
 | Parameter                | Type    |Required or not | Description                                                    |
 | :--------                | :-------|:-------------- | :--------------------------------                              |
 | programId                | string  |       Y        | must be between 1 and 36 bytes in UTF-8 encoding               |
-| kyc                      | object  |                |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                |
-|       firstname	       |string	 |      N         |First name of the individual                                    |
-|       lastname	       |string	 |      N         |Last name of the individual                                     |
-|       gender	           |integer  |      N         |Gender (1: male, 2: female)                                     |
-|       dob	               |string	 |      N         |Birthday (yyyy-MM-dd)                                           |
-|       nationalityid      |string	 |      N         |Nationality ID                                                  |
-|       email	           |string	 |      N         |Email                                                           |
-|       mobilecode	       |string	 |      N         |Mobile code (country code)                                      |
-|       mobile	           |string	 |      N         |Mobile number                                                   |
-|       address	           |string	 |      N         |Residential address                                             |
-|       town	           |string	 |      N         |Town code. Please call the interface /Towns                     |
-|       city	           |string	 |      N         |Country code. 2-digit code.Please call the interface /Countries |
-|       state	           |string	 |      N         |State or region                                                 |
-|       zipcode	           |string	 |      N         |Postal code                                                     |
-|       countryid	       |string	 |      N         |Country ID                                                      |
-|       countryisothree    |string	 |      N         |ISO 3166-1 alpha-3 country code                                 |
-|       emergencycontact   |string   |      N         |Emergency contact number                                        |
-|       doctype	           |integer  |      N         |Document type (0 for unspecified)                               |
-|       docid	           |string	 |      N         |Document ID                                                     |
-|       frontdoc	       |string	 |      N         |Front image of the document                                     |
-|       backdoc	           |string	 |      N         |Back image of the document                                      |
-|       docexpiredate      |string	 |      N         |Expiry date of the document                                     |
-|       docneveexpire      |integer  |      N         |Indicates if the document has never expired (0 for no)          |
-|       handholdidphoto    |string	 |      N         |Handheld ID photo                                               |
-|       biomatric	       |string   |      N         |Biometric data                                                  |
-|       photo	           |string	 |      N         |Personal photo                                                  |
-|       signimage	       |string	 |      N         |Signature image                                                 |
+| kyc                      | object  |                |If the Kycrequirements are null, then KYC information is not needed. However, if the Kycrequirements have a value and kycRequiredWhileApplyCard is true, the KYC information must be provided. In this case, ensure that the required fields are passed based on the program's KYC requirements. Otherwise, KYC information is not required.   |
+     |       firstname	       |string	 |      N         |First name of the individual                                    |
+     |       lastname	       |string	 |      N         |Last name of the individual                                     |
+     |       gender	           |integer  |      N         |Gender (1: male, 2: female)                                     |
+     |       dob	               |string	 |      N         |Birthday (yyyy-MM-dd)                                           |
+     |       nationalityid      |string	 |      N         |Nationality ID                                                  |
+     |       email	           |string	 |      N         |Email                                                           |
+     |       mobilecode	       |string	 |      N         |Mobile code (country code)                                      |
+     |       mobile	           |string	 |      N         |Mobile number                                                   |
+     |       address	           |string	 |      N         |Residential address                                             |
+     |       town	           |string	 |      N         |Town code. Please call the interface /Towns                     |
+     |       city	           |string	 |      N         |Country code. 2-digit code.Please call the interface /Countries |
+     |       state	           |string	 |      N         |State or region                                                 |
+     |       zipcode	           |string	 |      N         |Postal code                                                     |
+     |       countryid	       |string	 |      N         |Country ID                                                      |
+     |       countryisothree    |string	 |      N         |ISO 3166-1 alpha-3 country code                                 |
+     |       emergencycontact   |string   |      N         |Emergency contact number                                        |
+     |       doctype	           |integer  |      N         |Document type (0 for unspecified)                               |
+     |       docid	           |string	 |      N         |Document ID                                                     |
+     |       frontdoc	       |string	 |      N         |Front image of the document                                     |
+     |       backdoc	           |string	 |      N         |Back image of the document                                      |
+     |       docexpiredate      |string	 |      N         |Expiry date of the document                                     |
+     |       docneveexpire      |integer  |      N         |Indicates if the document has never expired (0 for no)          |
+     |       handholdidphoto    |string	 |      N         |Handheld ID photo                                               |
+     |       biomatric	       |string   |      N         |Biometric data                                                  |
+     |       photo	           |string	 |      N         |Personal photo                                                  |
+     |       signimage	       |string	 |      N         |Signature image                                                 |
         
 
 
@@ -456,11 +456,11 @@ Binding KYC
 
 | Parameter                | Type     | Required or not|Description                                                    |
 | :------------------------|:-------- |:---------------|:--------------------------------------------------------------|
-| taskId                   | string   |       Y        | must be between 1 and 36 bytes in UTF-8 encoding             |
+| taskId                   | string   |       Y        | must be between 1 and 36 bytes in UTF-8 encoding              |
 | cardNumber               | string   |       Y        |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
 |envelopeNo                | string   |       N        |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
 |handholdidphoto           |string    |       Y        | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
-| kyc                      | object   |                |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                |
+| kyc                      | object   |                |If the Kycrequirements are null, then KYC information is not needed. However, if the Kycrequirements have a value and kycRequiredWhileApplyCard is false, the KYC information must be provided. In this case, ensure that the required fields are passed based on the program's KYC requirements. Otherwise, KYC information is not required.                                |
 |       firstname	       |string	  |      N         |First name of the individual                                    |
 |       lastname	       |string	  |      N         |Last name of the individual                                     |
 |       gender	           |integer   |      N         |Gender (1: male, 2: female)                                     |
