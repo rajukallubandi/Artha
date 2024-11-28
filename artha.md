@@ -321,8 +321,8 @@ Programdetails
 | Passport             |  DocType, DocId, Frontdoc, Backdoc, DocExpireDate, DocNeverExpire. |
 | FullNameOnly         |  FirstName, LastName.                                           |
 | FullName             |  FirstName, LastName, Gender, DOB.                              |
-| Comms                | Email, EmailMobileCode, Mobile.                                 |
-| EmergencyContact     |  EmergencyContactNumber.                                        |
+| Comms                | Email, MobileCode, Mobile.                                      |
+| EmergencyContact     |  emergencycontact.                                              |
 | Address              |  Address.                                                       |
 | FullAddress          | Address, Town, City, State, ZipCode, CountryId, CountryIsoThree.|
 | HandedPassport       |  HandHoldIdPhoto.                                               |
@@ -353,32 +353,32 @@ Apply for a card using the specified program ID.
 | :--------                | :-------|:-------------- | :--------------------------------                              |
 | programId                | string  |       Y        | must be between 1 and 36 bytes in UTF-8 encoding               |
 | kyc                      | object  |                |If the Kycrequirements are null, then KYC information is not needed. However, if the Kycrequirements have a value and kycRequiredWhileApplyCard is true, the KYC information must be provided. In this case, ensure that the required fields are passed based on the program's KYC requirements. Otherwise, KYC information is not required.   |
-     |       firstname	       |string	 |      N         |First name of the individual                                    |
-     |       lastname	       |string	 |      N         |Last name of the individual                                     |
-     |       gender	           |integer  |      N         |Gender (1: male, 2: female)                                     |
-     |       dob	               |string	 |      N         |Birthday (yyyy-MM-dd)                                           |
-     |       nationalityid      |string	 |      N         |Nationality ID                                                  |
-     |       email	           |string	 |      N         |Email                                                           |
-     |       mobilecode	       |string	 |      N         |Mobile code (country code)                                      |
-     |       mobile	           |string	 |      N         |Mobile number                                                   |
-     |       address	           |string	 |      N         |Residential address                                             |
-     |       town	           |string	 |      N         |Town code. Please call the interface /Towns                     |
-     |       city	           |string	 |      N         |Country code. 2-digit code.Please call the interface /Countries |
-     |       state	           |string	 |      N         |State or region                                                 |
-     |       zipcode	           |string	 |      N         |Postal code                                                     |
-     |       countryid	       |string	 |      N         |Country ID                                                      |
-     |       countryisothree    |string	 |      N         |ISO 3166-1 alpha-3 country code                                 |
-     |       emergencycontact   |string   |      N         |Emergency contact number                                        |
-     |       doctype	           |integer  |      N         |Document type (0 for unspecified)                               |
-     |       docid	           |string	 |      N         |Document ID                                                     |
-     |       frontdoc	       |string	 |      N         |Front image of the document                                     |
-     |       backdoc	           |string	 |      N         |Back image of the document                                      |
-     |       docexpiredate      |string	 |      N         |Expiry date of the document                                     |
-     |       docneveexpire      |integer  |      N         |Indicates if the document has never expired (0 for no)          |
-     |       handholdidphoto    |string	 |      N         |Handheld ID photo                                               |
-     |       biomatric	       |string   |      N         |Biometric data                                                  |
-     |       photo	           |string	 |      N         |Personal photo                                                  |
-     |       signimage	       |string	 |      N         |Signature image                                                 |
+|       firstname	       |string	 |      N         |First name of the individual                                    |
+|       lastname	       |string	 |      N         |Last name of the individual                                     |
+|       gender	           |integer  |      N         |Gender (1: male, 2: female)                                     |
+|       dob	               |string	 |      N         |Birthday (yyyy-MM-dd)                                           |
+|       nationalityid      |string	 |      N         |Nationality ID                                                  |
+|       email	           |string	 |      N         |Email                                                           |
+|       mobilecode	       |string	 |      N         |Mobile code (country code)                                      |
+|       mobile	           |string	 |      N         |Mobile number                                                   |
+|       address	           |string	 |      N         |Residential address                                             |
+|       town	           |string	 |      N         |Town code. Please call the interface /Towns                     |
+|       city	           |string	 |      N         |Country code. 2-digit code.Please call the interface /Countries |
+|       state	           |string	 |      N         |State or region                                                 |
+|       zipcode	           |string	 |      N         |Postal code                                                     |
+|       countryid	       |string	 |      N         |Country ID                                                      |
+|       countryisothree    |string	 |      N         |ISO 3166-1 alpha-3 country code                                 |
+|       emergencycontact   |string   |      N         |Emergency contact number                                        |
+|       doctype	           |integer  |      N         |Document type (0 for unspecified)                               |
+|       docid	           |string	 |      N         |Document ID                                                     |
+|       frontdoc	       |string	 |      N         |Front image of the document                                     |
+|       backdoc	           |string	 |      N         |Back image of the document                                      |
+|       docexpiredate      |string	 |      N         |Expiry date of the document                                     |
+|       docneverexpire     |integer  |      N         |Indicates if the document has never expired (0 for no)          |
+|       handholdidphoto    |string	 |      N         |Handheld ID photo                                               |
+|       biomatric	       |string   |      N         |Biometric data                                                  |
+|       photo	           |string	 |      N         |Personal photo                                                  |
+|       signimage	       |string	 |      N         |Signature image                                                 |
         
 
 
