@@ -349,40 +349,38 @@ Apply for a card using the specified program ID.
 
 **Request Body**
 
-| Parameter | Type    |Required or not| Description                       |
-| :-------- | :-------|:--------------| :-------------------------------- |
-| programId | string  |       Y       | must be between 1 and 36 bytes in UTF-8 encoding |
-| kyc       | object  |               |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                |
+| Parameter                | Type    |Required or not | Description                                                    |
+| :--------                | :-------|:-------------- | :--------------------------------                              |
+| programId                | string  |       Y        | must be between 1 and 36 bytes in UTF-8 encoding               |
+| kyc                      | object  |                |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                |
+|       firstname	       |string	 |      N         |First name of the individual                                    |
+|       lastname	       |string	 |      N         |Last name of the individual                                     |
+|       gender	           |integer  |      N         |Gender (1: male, 2: female)                                     |
+|       dob	               |string	 |      N         |Birthday (yyyy-MM-dd)                                           |
+|       nationalityid      |string	 |      N         |Nationality ID                                                  |
+|       email	           |string	 |      N         |Email                                                           |
+|       mobilecode	       |string	 |      N         |Mobile code (country code)                                      |
+|       mobile	           |string	 |      N         |Mobile number                                                   |
+|       address	           |string	 |      N         |Residential address                                             |
+|       town	           |string	 |      N         |Town code. Please call the interface /Towns                     |
+|       city	           |string	 |      N         |Country code. 2-digit code.Please call the interface /Countries |
+|       state	           |string	 |      N         |State or region                                                 |
+|       zipcode	           |string	 |      N         |Postal code                                                     |
+|       countryid	       |string	 |      N         |Country ID                                                      |
+|       countryisothree    |string	 |      N         |ISO 3166-1 alpha-3 country code                                 |
+|       emergencycontact   |string   |      N         |Emergency contact number                                        |
+|       doctype	           |integer  |      N         |Document type (0 for unspecified)                               |
+|       docid	           |string	 |      N         |Document ID                                                     |
+|       frontdoc	       |string	 |      N         |Front image of the document                                     |
+|       backdoc	           |string	 |      N         |Back image of the document                                      |
+|       docexpiredate      |string	 |      N         |Expiry date of the document                                     |
+|       docneveexpire      |integer  |      N         |Indicates if the document has never expired (0 for no)          |
+|       handholdidphoto    |string	 |      N         |Handheld ID photo                                               |
+|       biomatric	       |string   |      N         |Biometric data                                                  |
+|       photo	           |string	 |      N         |Personal photo                                                  |
+|       signimage	       |string	 |      N         |Signature image                                                 |
+        
 
-
-| Parameter        | Type   | Description                                                    |
-|:-----------------|:------ |:-------------------------------------------------------------- |
-|firstname	       |string	|First name of the individual                                    |
-|lastname	       |string	|Last name of the individual                                     |
-|gender	           |integer |Gender (1: male, 2: female)                                     |
-|dob	           |string	|Birthday (yyyy-MM-dd)                                           |
-|nationalityid     |string	|Nationality ID                                                  |
-|email	           |string	|Email                                                           |
-|mobilecode	       |string	|Mobile code (country code)                                      |
-|mobile	           |string	|Mobile number                                                   |
-|address	       |string	|Residential address                                             |
-|town	           |string	|Town code. Please call the interface /Towns                     |
-|city	           |string	|Country code. 2-digit code.Please call the interface /Countries |
-|state	           |string	|State or region                                                 |
-|zipcode	       |string	|Postal code                                                     |
-|countryid	       |string	|Country ID                                                      |
-|countryisothree   |string	|ISO 3166-1 alpha-3 country code                                 |
-|emergencycontact  |string  |Emergency contact number                                        |
-|doctype	       |integer |Document type (0 for unspecified)                               |
-|docid	           |string	|Document ID                                                     |
-|frontdoc	       |string	|Front image of the document                                     |
-|backdoc	       |string	|Back image of the document                                      |
-|docexpiredate     |string	|Expiry date of the document                                     |
-|docneveexpire     |integer |Indicates if the document has never expired (0 for no)          |
-|handholdidphoto   |string	|Handheld ID photo                                               |
-|biomatric	       |string	|Biometric data                                                  |
-|photo	           |string	|Personal photo                                                  |
-|signimage	       |string	|Signature image                                                 |
 
 
 ```json
@@ -456,43 +454,39 @@ Binding KYC
 
 **Request Body**
 
-| Parameter     | Type     | Description                       |
-| :-------------|:-------- | :-------------------------------- |
-| taskId        | string   |  must be between 1 and 36 bytes in UTF-8 encoding |
-| cardNumber    | string   |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
-|envelopeNo     | string   |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
-|handholdidphoto|string    | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
-| kyc           | object   |Based on the program's KYC requirements, ensure that the required fields in the KYC section are provided while applying for a card or binding a card. |
-
-
-| Parameter        | Type   | Description                                                    |
-|:-----------------|:------ |:-------------------------------------------------------------- |
-|firstname	       |string	|First name of the individual                                    |
-|lastname	       |string	|Last name of the individual                                     |
-|gender	           |integer |Gender (1: male, 2: female)                                     |
-|dob	           |string	|Birthday (yyyy-MM-dd)                                           |
-|nationalityid     |string	|Nationality ID                                                  |
-|email	           |string	|Email                                                           |
-|mobilecode	       |string	|Mobile code (country code)                                      |
-|mobile	           |string	|Mobile number                                                   |
-|address	       |string	|Residential address                                             |
-|town	           |string	|Town code. Please call the interface /Towns                     |
-|city	           |string	|Country code. 2-digit code.Please call the interface /Countries |
-|state	           |string	|State or region                                                 |
-|zipcode	       |string	|Postal code                                                     |
-|countryid	       |string	|Country ID                                                      |
-|countryisothree   |string	|ISO 3166-1 alpha-3 country code                                 |
-|emergencycontact  |string  |Emergency contact number                                        |
-|doctype	       |integer |Document type (0 for unspecified)                               |
-|docid	           |string	|Document ID                                                     |
-|frontdoc	       |string	|Front image of the document                                     |
-|backdoc	       |string	|Back image of the document                                      |
-|docexpiredate     |string	|Expiry date of the document                                     |
-|docneveexpire     |integer |Indicates if the document has never expired (0 for no)          |
-|handholdidphoto   |string	|Handheld ID photo                                               |
-|biomatric	       |string	|Biometric data                                                  |
-|photo	           |string	|Personal photo                                                  |
-|signimage	       |string	|Signature image                                                 |
+| Parameter                | Type     | Required or not|Description                                                    |
+| :------------------------|:-------- |:---------------|:--------------------------------------------------------------|
+| taskId                   | string   |       Y        | must be between 1 and 36 bytes in UTF-8 encoding             |
+| cardNumber               | string   |       Y        |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
+|envelopeNo                | string   |       N        |Envelope number can be null. If provided, it must be between 1 and 15 bytes in UTF-8 encoding|
+|handholdidphoto           |string    |       Y        | Photo of holding passport and bank card (URL format). Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
+| kyc                      | object   |                |Based on the program's KYC requirements types, please check the KYC requirements and send the relevant type of response for KYC                                |
+|       firstname	       |string	  |      N         |First name of the individual                                    |
+|       lastname	       |string	  |      N         |Last name of the individual                                     |
+|       gender	           |integer   |      N         |Gender (1: male, 2: female)                                     |
+|       dob	               |string	  |      N         |Birthday (yyyy-MM-dd)                                           |
+|       nationalityid      |string	  |      N         |Nationality ID                                                  |
+|       email	           |string	  |      N         |Email                                                           |
+|       mobilecode	       |string	  |      N         |Mobile code (country code)                                      |
+|       mobile	           |string	  |      N         |Mobile number                                                   |
+|       address	           |string	  |      N         |Residential address                                             |
+|       town	           |string	  |      N         |Town code. Please call the interface /Towns                     |
+|       city	           |string	  |      N         |Country code. 2-digit code.Please call the interface /Countries |
+|       state	           |string	  |      N         |State or region                                                 |
+|       zipcode	           |string	  |      N         |Postal code                                                     |
+|       countryid	       |string	  |      N         |Country ID                                                      |
+|       countryisothree    |string	  |      N         |ISO 3166-1 alpha-3 country code                                 |
+|       emergencycontact   |string    |      N         |Emergency contact number                                        |
+|       doctype	           |integer   |      N         |Document type (0 for unspecified)                               |
+|       docid	           |string	  |      N         |Document ID                                                     |
+|       frontdoc	       |string	  |      N         |Front image of the document                                     |
+|       backdoc	           |string	  |      N         |Back image of the document                                      |
+|       docexpiredate      |string	  |      N         |Expiry date of the document                                     |
+|       docneveexpire      |integer   |      N         |Indicates if the document has never expired (0 for no)          |
+|       handholdidphoto    |string	  |      N         |Handheld ID photo                                               |
+|       biomatric	       |string    |      N         |Biometric data                                                  |
+|       photo	           |string	  |      N         |Personal photo                                                  |
+|       signimage	       |string	  |      N         |Signature image                                                 |
 
 ```json
 {
@@ -901,7 +895,7 @@ Pin Details
 
 ```json
 {  
- "cardNumber": "2222 4000 1000 0008",
+ "cardNumber": "2222400010000008",
  "pin": "234"
 }
 ```
@@ -939,21 +933,21 @@ Card Balance
 | code                    | -        | 200                                           |
 | data                    | object   | Data object for this respond                  |
 |     available_balance   | string   |         available_balance                     |
-|     card_currency       | string   |         card_currency                         |
-|     card_number         | string   |         card_number                           |
-|     card_type           | string   |         card_type                             |
-|     current_balance     | string   |         current_balance                       |
+|     cardcurrency       | string   |         card_currency                         |
+|     cardnumber         | string   |         card_number                           |
+|     cardtype           | string   |         card_type                             |
+|     currentbalance     | string   |         current_balance                       |
 |   msg                   | string   |         ok                                    |
 ```json 
 {  
  "code": "200",
  "data":
  {
-   "available_balance": "100",
-    "card_currency": "USD",
-    "card_number": "12134523",
-    "card_type": "OT",
-    "current_balance": "50"
+   "availablebalance": "100",
+    "cardcurrency": "USD",
+    "cardnumber": "12134523",
+    "cardtype": "OT",
+    "currentbalance": "50"
  },
 
   "msg": "ok"
