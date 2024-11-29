@@ -36,7 +36,7 @@
     - [consume result callback notification](#consume-result-callback-notification)
     - [fee callback notification](#fee-callback-notification)
     - [refund callback notification](#refund-callback-notification)
-    - [Bankcard 3DSverification](#Bankcard-3DSverification)
+    - [Bank card 3DS verification](#Bank-card-3DS-verification)
     
 
 
@@ -72,7 +72,7 @@ Test environment: https://tstcards.artha.work/
 
 ## API Base URL
 
-Test environment:[ https://tstapi.artha.work/api/v1 _blank] 
+Test environment: https://tstapi.artha.work/api/v1 
 
 
 **customerToken:** This token must be included in the request header when accessing the API, using the format **customerToken={customerToken}**.
