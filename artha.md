@@ -29,20 +29,21 @@
 	
 	
 - [Callback notification](#Callback-notification)	
-    - [Callback-notificationtype](#Merchant-Information)
-    - [GlobalExpressRemittancePaymentresultcallbacknotification](#GlobalExpressRemittancePaymentresultcallbacknotification)	
-    - [GlobalExpressRemittanceAdjustmentcallbacknotification](#GlobalExpressRemittanceAdjustmentcallbacknotification)
-    - [UserKYCcallbacknotification](#UserKYCcallbacknotification)
-    - [Bankcardcallbacknotificationofcardrechargeresult](#Bankcardcallbacknotificationofcardrechargeresult)
-    - [Bankcardactivationresultcallbacknotification](#Bankcardactivationresultcallbacknotification)
-    - [Bankcardfreezethawprocessingstatuscallbacknotification](#Bankcardfreezethawprocessingstatuscallbacknotification)
+    - [kycstatusresultcallbacknotification](#kycstatusresultcallbacknotification)
+    - [createcardresultcallbacknotification](#createcardresultcallbacknotification)
+    - [rechargecallbacknotification](#rechargecallbacknotification)
+    - [operationcallbacknotification](#operationcallbacknotification)
+    - [consumeresultcallbacknotification](#consumeresultcallbacknotification)
+    - [feecallbacknotification](#feecallbacknotification)
+    - [refundcallbacknotification](#refundcallbacknotification)
     - [Bankcard3DSverification](#Bankcard3DSverification)
+    
 
 
 # Introduction
 Welcome to the ArthaCard developer documentation. An overview of the merchant docking application development interface.
 
-REST API includes two business categories: bank card and global remittance
+
 
 # Basic Information
 
@@ -92,7 +93,7 @@ To ensure security and verify the sender's identity, all open API requests are a
 |----------------|--------|----------|-------------------------------------------------------------------------------|
 | timestamp      | long   | true     | Unix timestamp (in second)                                                    |
 | nonce          | string | true     | Random 10 characters string                                                   |
-| customerToken   | string | true    | Merchant identification, provided by Artha Cards                                  |
+| customerToken   | string | true    | Merchant identification, provided by Artha Cards                              |
 | signature      | string | true     | Signature of request body + header request                                    |
 
 
@@ -139,7 +140,6 @@ and the merchant must exchange public keys, which will be used for validating re
 | opt_code   | String | Y        | It's Kind Of OTP |
 | notifyType | String | Y        | notification type |
 | amount	 | String | Y        | Amount   |
-|CreationTime| integer| Y        | CreationTime |
 
 ## Callback Notification Response Parameters and Template
 | Parameters | Type | Whether it is required | Meaning |
@@ -351,7 +351,7 @@ Apply for a card using the specified program ID.
 
 | Parameter                | Type    |Required or not | Description                                                    |
 | :--------                | :-------|:-------------- | :--------------------------------                              |
-| programId                | string  |       Y        | must be between 1 and 36 bytes in UTF-8 encoding               |
+| programId                | string  |       Y        | programId                                                      |
 | kyc                      | object  |                |If the Kycrequirements are null, then KYC information is not needed. However, if the Kycrequirements have a value and kycRequiredWhileApplyCard is true, the KYC information must be provided. In this case, ensure that the required fields are passed based on the program's KYC requirements. Otherwise, KYC information is not required.   |
 
 **kyc**
@@ -361,7 +361,7 @@ Apply for a card using the specified program ID.
 |       lastname	       |string	  |      N         |Last name of the individual                                     |
 |       gender	           |integer   |      N         |Gender (1: male, 2: female)                                     |
 |       dob	               |string	  |      N         |Birthday (yyyy-MM-dd)                                           |
-|       nationalityid      |string	  |      N         |Nationalityid  Please call the interface /Countries             |
+|       nationalityid      |string	  |      N         |Nationalityid.  Please call the interface /Countries             |
 |       email	           |string	  |      N         |Email                                                           |
 |       mobilecode	       |string	  |      N         |Mobile code (country code)                                      |
 |       mobile	           |string	  |      N         |Mobile number                                                   |
@@ -448,7 +448,8 @@ Apply for a card using the specified program ID.
 
 **Summary**
 
-Binding KYC
+If kycRequiredWhileApplyCard is true, you must wait for the kycStatus callback. Once you receive a success status in the callback, you can proceed to bind the card.
+If kycRequiredWhileApplyCard is false, you can directly call the Bind API after applying for the card.
 
 **Request**
 
@@ -460,10 +461,10 @@ Binding KYC
 
 | Parameter                | Type     | Required or not|Description                                                    |
 | :------------------------|:-------- |:---------------|:--------------------------------------------------------------|
-| taskId                   | string   |       Y        | must be between 1 and 36 bytes in UTF-8 encoding              |
-| cardNumber               | string   |       Y        |**Required.** Card number must be at least 1 byte and no more than 19 bytes in UTF-8 encoding|
+| cardId                   | string   |       Y        | cardId                                                        |
+| cardNumber               | string   |       Y        |**Required.** Card number                                      |
 |envelopeNo                | string   |       N        |Check if the EnvelopeNoRequired field is required in the program interface.|
-|handholdidphoto           |string    |       Y        | Photo of holding passport and bank card  Cannot exceed 2M, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
+|handholdidphoto           |string    |       Y        | Photo of holding passport and bank card  Cannot exceed 2MB, supports .png, .jpeg, .jpg formats. When the user performs kyc, the card type represented by the parameter cardTypeId is only required when needPhotoForActiveCard=true. See the parameter needPhotoForActiveCard in the interface /MerchantInformation/Merchant.|
 | kyc                      | object   |                |If the Kycrequirements are null, then KYC information is not needed. However, if the Kycrequirements have a value and kycRequiredWhileApplyCard is false, the KYC information must be provided. In this case, ensure that the required fields are passed based on the program's KYC requirements. Otherwise, KYC information is not required.                                |
 
 **kyc**
@@ -473,7 +474,7 @@ Binding KYC
 |       lastname	       |string	  |      N         |Last name of the individual                                     |
 |       gender	           |integer   |      N         |Gender (1: male, 2: female)                                     |
 |       dob	               |string	  |      N         |Birthday (yyyy-MM-dd)                                           |
-|       nationalityid      |string	  |      N         |Nationalityid  Please call the interface /Countries             |
+|       nationalityid      |string	  |      N         |Nationalityid.  Please call the interface /Countries             |
 |       email	           |string	  |      N         |Email                                                           |
 |       mobilecode	       |string	  |      N         |Mobile code (country code)                                      |
 |       mobile	           |string	  |      N         |Mobile number                                                   |
@@ -595,7 +596,7 @@ Card Estimation TopUp Fee
   "cardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
   "amount": "100",
   "fee": "10",
-  "receiveAmount": "30"
+  "receiveAmount": "90"
 }
 ```
 
@@ -971,14 +972,33 @@ Countries
 **Response**
 
 ```json
-{  
- "id": "8ee37608-a700-434b-be5d-ba01fd74182c",
- "name":"India",
- "nationality":"India",
- "isoTwo":"Y",
- "isoThree":"Y",
- "isoNumber":"Y"
- }
+[
+    {
+        "id": "8ee37608-a700-434b-be5d-ba01fd74182c",
+        "name": "India",
+        "nationality": "Indian",
+        "isoTwo": "IN",
+        "isoThree": "IND",
+        "isoNumber": "356"
+    },
+    {
+        "id": "7aa23818-b812-47f4-af7d-99a20fa4b3de",
+        "name": "United States",
+        "nationality": "American",
+        "isoTwo": "US",
+        "isoThree": "USA",
+        "isoNumber": "840"
+    },
+    {
+        "id": "2f24d5b0-90a7-4f8d-8ed9-8337cf0e9c82",
+        "name": "Canada",
+        "nationality": "Canadian",
+        "isoTwo": "CA",
+        "isoThree": "CAN",
+        "isoNumber": "124"
+    }
+]
+
  ```
 
 ## Towns
@@ -998,12 +1018,27 @@ Towns
 **Response**
 
 ```json
-{  
- "id": "8ee37608-a700-434b-be5d-ba01fd74182c",
- "name":"India",
- "code":"In",
- "countryOrRegion":"Y"
- }
+[
+    {
+        "id": "1a2b3c4d-5678-9101-1121-314151617181",
+        "name": "Mumbai",
+        "code": "MU",
+        "countryOrRegion": "India"
+    },
+    {
+        "id": "2b3c4d5e-6789-1011-1213-141516171819",
+        "name": "Delhi",
+        "code": "DL",
+        "countryOrRegion": "India"
+    },
+    {
+        "id": "3c4d5e6f-7890-1112-1314-151617181920",
+        "name": "Bangalore",
+        "code": "BL",
+        "countryOrRegion": "India"
+    }
+]
+
  ```
 # Callback notification
 
@@ -1015,15 +1050,19 @@ Please set the callback notification address in the merchant basic information i
 
 | notifyType  | business       | meaning |
 |:------------|:---------------|:------  |
-| 1           | Global Express | Payment success, payment failure, refund notification |
-| 2           | Bank card      | Card recharge result callback notification |
-| 3           | Bank card      | Card activation result callback notification |
-| 4           | Bank card      | Card freeze, thaw processing status callback notification |
-| 5           | Bank card      | 3DS verification |
-| 6           | Bank card      | Bank Card Consumption Statement |
+| kycstatus   | Bank card      | Card Kyc activation result callback notification 
+This applies only to physical cards and only if kycRequiredWhileApplyCard is true. Once the KYC is approved, you can proceed to bind the card.|
+| createcard  | Bank card      | Card activation result callback notification|
+| recharge    | Bank card      | Card recharge result callback notification |
+| operation   | Bank card      | Card freeze,unfreeze and cancel callback notification |
+| consume     | Bank card      | Card Consumption callback notification |
+| fee         | Bank card      | Card ConsumptionFee  callback notification |
+| refund      | Bank card      | Card Refund callback notification |
+| opt_code    | Bank card      | 3DS verification |
 
-## Global Express Remittance Payment result callback notification
-This notification notifyType = 1
+
+## kycstatus result callback notification
+This notification notifyType = kycstatus
 
 **Callback parameters:**
 
@@ -1033,22 +1072,42 @@ This notification notifyType = 1
 | TaskId         | String     |        TaskId             |
 | NotifyType     | String     |        NotifyType         |
 | Status         | String     |        Status             |
-| Remarks        | String     |        Remarks            |                                                                                                                                                     
-| amount         | Decimal    |        amount             |
-| CreationTime   | String     |        CreationTime       |
+| Remarks        | String     |        Remarks            |
 
 **Callback example:**
 
 ```JSON
 {
-   
-        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
-        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
-        "NotifyType": "refund",
-        "Status": "success",
-        "Remarks":Error Message ,
-        "amount": "100",
-        "CreationTime": "2011-W01-2T00:05:23.283"
+  "CardId": "1ecdc168-88e7-3e32-0c99-3a1640e53c67",
+  "TaskId": "1ecdc168-88e7-3e32-0c99-3a1640e53c67",
+  "NotifyType": "kycstatus",
+  "Status": "Success",
+  "Remarks": "Status Description"
+}
+```
+
+## createcard result callback notification
+This notification notifyType = createcard
+
+**Callback parameters:**
+
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| Status         | String     |        Status             |
+| Remarks        | String     |        Remarks            |
+
+**Callback example:**
+
+```JSON
+{
+  "TaskId": "4754c628-4a01-d836-d805-3a158ab6adf6",
+  "NotifyType": "createcard",
+  "CardId": "4754c628-4a01-d836-d805-3a158ab6adf6",
+  "Status": "SUCCESS",
+  "Remarks": "Status Description"
 }
 ```
 
@@ -1067,9 +1126,9 @@ This notification notifyType = 1
     "message": "success"
 }
 ```
-## Global Express Remittance Adjustment callback notification
+## recharge callback notification
 
-This notification notifyType = 2
+This notification notifyType = recharge
 
 **Callback parameters:**
 
@@ -1079,22 +1138,17 @@ This notification notifyType = 2
 | TaskId         | String     |        TaskId             |
 | NotifyType     | String     |        NotifyType         |
 | Status         | String     |        Status             |
-| Remarks        | String     |        Remarks            |                                                                                                                                                     
-| amount         | Decimal    |        amount             |
-| CreationTime   | String     |        CreationTime       |
+| Remarks        | String     |        Remarks            |
 
 **Callback example:**
 
 ```JSON
 {
-   
-        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
-        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
-        "NotifyType": "Recharge",
-        "Status": "success",
-        "Remarks":Error Message ,
-        "amount": "100",
-        "CreationTime": "2011-W01-2T00:05:23.283"
+  "CardId": "968d17d5-7e75-931c-ddbb-3a14c9775903",
+  "TaskId": "b31fdd7b-f545-005a-aa28-3a15ed46b5d3",
+  "NotifyType": "operation",
+  "Status": "Success",
+  "Remarks": "Status Description"
 }
 ```
 **Response parameters:**
@@ -1111,8 +1165,8 @@ This notification notifyType = 2
     "message": "success"
 }
 ```
-## User KYC callback notification
-This notification notifyType = 3
+## operation callback notification
+This notification notifyType = operation
 
 **Callback parameters:**
 
@@ -1127,12 +1181,11 @@ This notification notifyType = 3
 **Callback example:**
 ```JSON
 {
-   
-        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
-        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
-        "NotifyType": "createcard",
-        "Status": "success",
-        "Remarks":Error Message 
+  "CardId": "968d17d5-7e75-931c-ddbb-3a14c9775903",
+  "TaskId": "b31fdd7b-f545-005a-aa28-3a15ed46b5d3",
+  "NotifyType": "operation",
+  "Status": "Success",
+  "Remarks": "status Description"
 }
 ```
 
@@ -1150,8 +1203,8 @@ This notification notifyType = 3
     "message": "success"
 }
 ```
-## Bank card activation result callback notification
-This notification notifyType = 4
+## consume result callback notification
+This notification notifyType = consume
 
 **Callback parameters:**
 
@@ -1162,19 +1215,19 @@ This notification notifyType = 4
 | NotifyType     | String     |        NotifyType         |
 | Status         | String     |        Status             |
 | Remarks        | String     |        Remarks            |                                                                                                                                                     
-| amount         | Decimal    |        amount             |
-| CreationTime   | String     |        CreationTime       |
+| Amount         | Decimal    |        Amount             |
+| Currency       | String     |        Currency           |
 
 **Callback example:**
 ```JSON
 {
-        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
-        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
-        "NotifyType": "freeze",
-        "Status": "success",
-        "Remarks":Error Message ,
-        "amount": "100",
-        "CreationTime": "2011-W01-2T00:05:23.283"
+  "CardId": "b2df3227-9716-e841-3827-3a151c8c271e",
+  "TaskId": "cf4a59d3-6248-2565-7b01-3a15b78b7903",
+  "NotifyType": "consume",
+  "Status": "Success",
+  "amount": "207.5700",
+  "currency": "USD",
+  "Remarks": "Status Description"
 }
 ```
 
@@ -1192,8 +1245,8 @@ This notification notifyType = 4
     "message": "success"
 }
 ```
-## Bank card freeze thaw processing status callback notification
-This notification notifyType = 5
+## fee callback notification
+This notification notifyType = fee
 
 **Callback parameters:**
 
@@ -1204,20 +1257,20 @@ This notification notifyType = 5
 | NotifyType     | String     |        NotifyType         |
 | Status         | String     |        Status             |
 | Remarks        | String     |        Remarks            |                                                                                                                                                     
-| amount         | Decimal    |        amount             |
-| CreationTime   | String     |        CreationTime       |
+| Amount         | Decimal    |        Amount             |
+| Currency       | String     |        Currency           |
 
 **Callback example:**
 
 ```JSON
 {
-        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
-        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
-        "NotifyType": "OPT_CODE",
-        "Status": "success",
-        "Remarks":Error Message ,
-        "amount": "100",
-        "CreationTime": "2011-W01-2T00:05:23.283"
+  "CardId": "0217c3a8-42c9-c449-9a11-3a14f8f1169a",
+  "TaskId": "d95ba737-e3d8-fbe6-4e03-3a15ca96bb8e",
+  "NotifyType": "fee",
+  "Status": "Success",
+  "amount": "12.2900",
+  "currency": "USD",
+  "Remarks": "Status Description"
 }
 ```
 
@@ -1235,8 +1288,8 @@ This notification notifyType = 5
     "message": "success"
 }
 ```
-## Bank card 3DS verification
-This notification notifyType = 6
+## refund callback notification
+This notification notifyType = refund
 
 **Callback parameters:**
 
@@ -1247,20 +1300,58 @@ This notification notifyType = 6
 | NotifyType     | String     |        NotifyType         |
 | Status         | String     |        Status             |
 | Remarks        | String     |        Remarks            |                                                                                                                                                     
-| amount         | Decimal    |        amount             |
-| CreationTime   | String     |        CreationTime       |
+| Amount         | Decimal    |        Amount             |
+| Currency       | String     |        Currency           |
 
 **Callback example:**
 
 ```JSON
 {
-        "CardId": "d54f5e69-107d-49d2-bafe-7f837eb85da8",
-        "TaskId": "74099243-5467-4e29-9f7f-6984f1db9e01",
-        "NotifyType": "Consume",
-        "Status": "success",
-        "Remarks":Error Message ,
-        "amount": "100",
-        "CreationTime": "2011-W01-2T00:05:23.283"
+  "CardId": "135ae96b-c46b-3e18-600f-3a1596f820a6",
+  "TaskId": "b2b8caf1-d457-09fd-276b-3a1597b81f6c",
+  "NotifyType": "refund",
+  "Status": "Success",
+  "amount": "1.35",
+  "currency": "USD",
+  "Remarks": "Status Description"
+}
+```
+
+**Response parameters:**
+
+| Parameter | Type | Required or not | Meaning |
+|:------|:------|:------|:------|
+| code | Integer | Y | 0. After returning 0, callback notification will not be initiated repeatedly |
+| message | String | N | Information |
+
+**Response example:**
+```json
+{
+    "code": 0,
+    "message": "success"
+}
+```
+
+## Bank card 3DS verification
+This notification notifyType = OPT_CODE
+
+**Callback parameters:**
+
+| Parameter      | Type       | Description               |
+|:------         |:------     |:--------------------      |
+| CardId         | String     |        CardId             |
+| TaskId         | String     |        TaskId             |
+| NotifyType     | String     |        NotifyType         |
+| OPT_CODE       | String     |        OPT_CODE           |
+
+**Callback example:**
+
+```JSON
+{
+  "CardId": "75568818-c4f3-715d-3fa9-3a157ee23b30",
+  "TaskId": "75568818-c4f3-715d-3fa9-3a157ee23b30",
+  "NotifyType": "OPT_CODE",
+  "OPT_CODE": " 971615"
 }
 ```
 
