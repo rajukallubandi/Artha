@@ -29,7 +29,7 @@
 	
 	
 - [Callback notification](#Callback-notification)	
-    - [kycstatusresultcallbacknotification](#kycstatusresultcallbacknotification)
+    - [kycstatusresultcallbacknotification](#kycstatus result callback notification)
     - [createcard result callback notification](#createcardresultcallbacknotification)
     - [recharge callback notification](#rechargecallbacknotification)
     - [operation callback notification](#operationcallbacknotification)
