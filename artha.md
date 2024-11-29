@@ -29,14 +29,14 @@
 	
 	
 - [Callback notification](#Callback-notification)	
-    - [kyc-status-result-callback-notification](#kycstatusresultcallbacknotification)
-    - [createcardresultcallbacknotification](#createcardresultcallbacknotification)
-    - [rechargecallbacknotification](#rechargecallbacknotification)
-    - [operationcallbacknotification](#operationcallbacknotification)
-    - [consumeresultcallbacknotification](#consumeresultcallbacknotification)
-    - [feecallbacknotification](#feecallbacknotification)
-    - [refundcallbacknotification](#refundcallbacknotification)
-    - [Bankcard3DSverification](#Bankcard3DSverification)
+    - [kyc status result callback notification](#kycstatusresultcallbacknotification)
+    - [createcard result callback notification](#createcardresultcallbacknotification)
+    - [recharge callback notification](#rechargecallbacknotification)
+    - [operation callback notification](#operationcallbacknotification)
+    - [consume result callback notification](#consumeresultcallbacknotification)
+    - [fee callback notification](#feecallbacknotification)
+    - [refund callback notification](#refundcallbacknotification)
+    - [Bankcard 3DSverification](#Bankcard3DSverification)
     
 
 
