@@ -30,13 +30,13 @@
 	
 - [Callback notification](#Callback-notification)	
     - [kyc status result callback notification](#kycstatus-result-callback-notification)
-    - [createcard result callback notification](#createcardresultcallbacknotification)
-    - [recharge callback notification](#rechargecallbacknotification)
-    - [operation callback notification](#operationcallbacknotification)
-    - [consume result callback notification](#consumeresultcallbacknotification)
-    - [fee callback notification](#feecallbacknotification)
-    - [refund callback notification](#refundcallbacknotification)
-    - [Bankcard 3DSverification](#Bankcard3DSverification)
+    - [createcard result callback notification](#createcard-result-callback-notification)
+    - [recharge callback notification](#recharge-callback-notification)
+    - [operation callback notification](#operation-callback-notification)
+    - [consume result callback notification](#consume-result-callback-notification)
+    - [fee callback notification](#fee-callback-notification)
+    - [refund callback notification](#refund-callback-notification)
+    - [Bankcard 3DSverification](#Bankcard-3DSverification)
     
 
 
@@ -67,12 +67,12 @@ Recommended to using Test environment for debugging before proceed to the produc
 
 ## Merchant platform URL
 
-Test environment: https://tstapi.artha.work/api/v1
+Test environment: https://tstcards.artha.work/
 
 
 ## API Base URL
 
-Test environment: https://tstapi.artha.work/api/v1
+Test environment:[ https://tstapi.artha.work/api/v1 _blank] 
 
 
 **customerToken:** This token must be included in the request header when accessing the API, using the format **customerToken={customerToken}**.
